@@ -45,7 +45,7 @@ function Navbar() {
     setAnchorElUser(null);
   };
   // log out user
-  const logOutUser = async() => {
+  const logOutUser = async () => {
     await logoutUser();
     await dispatch(SET_LOGIN(false));
     navigate("/");

@@ -77,7 +77,7 @@ export default function Login() {
     <>
       <Navbar />
       <ThemeProvider theme={defaultTheme}>
-        {isLoading && <Loader/>}
+        {isLoading && <Loader />}
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
           <Grid
@@ -158,7 +158,11 @@ export default function Login() {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="/forgot-password" variant="body2">
+                    <Link
+                      to="/forgot-password"
+                      onClick={() => navigate("/forgot-password")}
+                      variant="body2"
+                    >
                       Forgot password?
                     </Link>
                   </Grid>
@@ -168,7 +172,7 @@ export default function Login() {
                       </Link>
                     </Grid> */}
                   <Grid item>
-                    <Link href="/register" variant="body2">
+                    <Link onClick={() => navigate("/register")} variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
