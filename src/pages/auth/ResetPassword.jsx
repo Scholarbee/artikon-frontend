@@ -16,7 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const { token } = useParams();
+  const { tk } = useParams();
   const navigator = useNavigate();
 
   const changePassword = async (e) => {
@@ -32,7 +32,7 @@ function ResetPassword() {
     const data = { password, password2 };
 
     try {
-      const result = await resetPassword(data, token);
+      const result = await resetPassword(data, tk);
       toast(result.message);
       toast("Password reset successfully");
       navigator("/login");

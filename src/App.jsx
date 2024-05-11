@@ -62,7 +62,7 @@ function App() {
           <Route path="/report-bug" element={<ReportBugHOC />} />
           <Route path="/report-bug" element={<ReportBugHOC />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/reset-password/:tk" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </>
