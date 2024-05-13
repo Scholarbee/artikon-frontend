@@ -15,8 +15,6 @@ const columns = [
     id: "date",
     label: "Date",
     minWidth: 170,
-    // align: "right",
-    format: (value) => value.toLocaleString("en-US"),
   },
   { id: "appointments", label: "Appointment(s)", minWidth: 100 },
   {
@@ -24,118 +22,39 @@ const columns = [
     label: "Like(s)",
     minWidth: 100,
     align: "right",
-    format: (value) => value.toLocaleString("en-US"),
+    // format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "comments",
     label: "Comment(s)",
     minWidth: 100,
     align: "right",
-    // format: (value) => value.toFixed(2),
   },
   {
     id: "action",
     label: "Actions",
     minWidth: 100,
-    // align: "right",
-    format: (value) => value.toFixed(2),
+    // format: (value) => value.toFixed(2),
   },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
+// function createData(name, code, population, size) {
+//   const density = population / size;
+//   return { name, code, population, size, density };
+// }
 
-const rows = [
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  {
-    name: "My Work",
-    date: "May 4, 24",
-    appointments: 7,
-    likes: 5,
-    comments: 2,
-  },
-  
-];
+// const rows = [
+//   {
+//     name: "My Work",
+//     date: "May 4, 24",
+//     appointments: 7,
+//     likes: 5,
+//     comments: 2,
+//   },
+// ];
 
-export default function PostTable() {
+export default function PostTable({ myPosts }) {
+  const [rows, setRows] = React.useState(myPosts);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -166,7 +85,7 @@ export default function PostTable() {
                     fontSize: "large",
                   }}
                 >
-                  {column.label}
+                  {"column.label"}
                 </TableCell>
               ))}
             </TableRow>

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -10,59 +9,51 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import Dropzone from "react-dropzone";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import axios from "axios";
 import { toast } from "react-toastify";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-// import { modules } from "../components/moduleToolbar";
-// import { BACKEND_URL } from "../redux/actions/userAction";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// const validationSchema = yup.object({
-//   title: yup
-//     .string("Add a post title")
-//     .min(4, "text content should havea minimum of 4 characters ")
-//     .required("Post title is required"),
-//   content: yup
-//     .string("Add text content")
-//     .min(10, "text content should havea minimum of 10 characters ")
-//     .required("text content is required"),
-// });
+import { createPost } from "../../redux/posts/postActions";
+import { useState } from "react";
 
 function CreatePost() {
-  const [desc, setDesc] = useState("");
+  const [coverPhoto, setCoverPhoto] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState({
+    title: "",
+    businessType: "",
+    description: "",
+  });
 
-  // const handleChange = (event) => {
-  //   setAge(event.target.value);
-  // };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
-      const [formData, setFormData] = useState({
-        coverPhoto: null,
-      });
+  const submit = async (e) => {
+    e.preventDefault();
+    const { title, description, businessType } = data;
 
+    if (!title || !description || !businessType || !coverPhoto) {
+      toast.info("All fields are required");
+    }
 
-      const handleChange = (event) => {
-        const { name, value, files } = event.target;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("businessType", businessType);
+    formData.append("description", description);
+    formData.append("my_file", coverPhoto);
 
-        // If it's a file input (profile photo), store the file directly
-        const newValue = name === "coverPhoto" ? files[0] : value;
-
-        setFormData({
-          ...formData,
-          [name]: newValue,
-        });
-      };
-
-
-
-
-  
+    setIsLoading(true)
+    try {
+      await createPost(formData);
+      toast.success("Ad created successfully");
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -71,12 +62,7 @@ function CreatePost() {
           {" "}
           Create post{" "}
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          // onSubmit={"handleSubmit"}
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" noValidate onSubmit={submit} sx={{ mt: 1 }}>
           <Stack spacing={3}>
             <TextField
               sx={{ mb: 3 }}
@@ -88,11 +74,8 @@ function CreatePost() {
                 shrink: true,
               }}
               placeholder="Post title"
-              // value={values.title}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-              // error={touched.title && Boolean(errors.title)}
-              // helperText={touched.title && errors.title}
+              value={data.title}
+              onChange={handleChange}
             />
             <FormControl required sx={{ m: 1, minWidth: 120 }}>
               <Stack>
@@ -102,13 +85,14 @@ function CreatePost() {
                 <Select
                   labelId="demo-simple-select-required-label"
                   id="demo-simple-select-required"
-                  // value={age}
+                  value={data.businessType}
                   placeholder="Business Type"
                   label="Business Type *"
+                  name="businessType"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Goods</MenuItem>
-                  <MenuItem value={20}>Services</MenuItem>
+                  <MenuItem value={"good"}>Goods</MenuItem>
+                  <MenuItem value={"service"}>Services</MenuItem>
                 </Select>
               </Stack>
             </FormControl>
@@ -117,10 +101,10 @@ function CreatePost() {
               <textarea
                 cols="30"
                 rows="10"
-                name="desc"
+                name="description"
                 required
-                value={desc}
-                onChange={(e) => setDesc(e.target.value)}
+                value={data.description}
+                onChange={handleChange}
               ></textarea>
             </Stack>
             <Box>
@@ -130,15 +114,15 @@ function CreatePost() {
                   type="file"
                   accept="image/*"
                   name="coverPhoto"
-                  onChange={handleChange}
+                  onChange={(e) => setCoverPhoto(e.target.files[0])}
                   className="coverPhoto"
                 />
               </label>
 
               {/* Display Profile Photo */}
-              {formData.coverPhoto && (
+              {coverPhoto && (
                 <img
-                  src={URL.createObjectURL(formData.coverPhoto)}
+                  src={URL.createObjectURL(coverPhoto)}
                   alt="Profile"
                   className="cover-img"
                 />
@@ -151,9 +135,9 @@ function CreatePost() {
               variant="contained"
               elevation={0}
               sx={{ mt: 3, p: 1, mb: 2, borderRadius: "25px" }}
-              // disabled={loading}
+              disabled={isLoading}
             >
-              Create post
+              {isLoading ? "Processing... Please wait" : "Create post"}
             </Button>
           </Stack>
         </Box>
