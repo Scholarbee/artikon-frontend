@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addLke, removeLike } from "../../redux/posts/postActions";
 import { selectIsLoggedIn, selectUser } from "../../redux/auth/authSlice";
+import { useState } from "react";
 //import image from '../images/blog.jpg'
 
 const PostCard = ({
@@ -32,31 +33,39 @@ const PostCard = ({
   showPosts,
   likesId,
 }) => {
-
   const userInfo = useSelector(selectUser);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   //add like
   const handleAddLike = async () => {
+    setIsLoading(true);
     try {
       const data = await addLke(id);
       if (data.success == true) {
         showPosts();
+        setIsLoading(false);
       }
+      setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.error);
+      setIsLoading(false);
     }
   };
 
   //remove like
   const handleRemoveLike = async () => {
+    setIsLoading(true);
     try {
       const data = await removeLike(id);
       if (data.success == true) {
         showPosts();
+        setIsLoading(false);
       }
+      setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.error);
+      setIsLoading(false);
     }
   };
 
@@ -93,13 +102,18 @@ const PostCard = ({
           <Box>
             {likesId.includes(userInfo && userInfo.id) ? (
               <IconButton
+                disabled={isLoading}
                 onClick={handleRemoveLike}
                 aria-label="add to favorites"
               >
                 <FavoriteIcon sx={{ color: "teal" }} />
               </IconButton>
             ) : (
-              <IconButton onClick={handleAddLike} aria-label="add to favorites">
+              <IconButton
+                disabled={isLoading}
+                onClick={handleAddLike}
+                aria-label="add to favorites"
+              >
                 <FavoriteBorderIcon sx={{ color: "teal" }} />
               </IconButton>
             )}
