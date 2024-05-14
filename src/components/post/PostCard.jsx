@@ -60,7 +60,7 @@ const PostCard = ({
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card >
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: teal[200] }} aria-label="recipe" />}
         title={title}

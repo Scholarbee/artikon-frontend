@@ -40,7 +40,7 @@ function Home() {
                 <Loader />
               ) : (
                 posts.map((post, index) => (
-                  <Grid item xs={2} sm={4} md={4} key={index}>
+                  <Grid item xs={12} sm={4} md={4} key={index}>
                     <PostCard
                       id={post._id}
                       title={post.title}
