@@ -80,6 +80,8 @@ export default function Register() {
       // navigate("/dashboard");
       setIsLoading(false);
       toast.success("Success");
+
+      navigate("/user/dashboard");
     } catch (error) {
       setIsLoading(false);
     }

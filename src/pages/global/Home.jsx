@@ -23,6 +23,18 @@ function Home() {
     }
   };
 
+  const showPosts = async () => {
+    try {
+      const data = await getPosts();
+      setPosts(data.data);
+      (false);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+
+
   useEffect(() => {
     getAllPosts();
   }, []);
@@ -52,7 +64,7 @@ function Home() {
                       comments={post.comments.length}
                       likes={post.likes.length}
                       likesId={post.likes}
-                      showPosts={getAllPosts}
+                      showPosts={showPosts}
                     />
                   </Grid>
                 ))
