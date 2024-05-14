@@ -13,9 +13,11 @@ function Home() {
   const [loading, setLoading] = useState(false);
 
   const getAllPosts = async () => {
+    setLoading(true)
     try {
       const data = await getPosts();
       setPosts(data.data);
+      setLoading(false)
     } catch (error) {
       toast.error(error.message);
     }
