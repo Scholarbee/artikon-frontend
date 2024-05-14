@@ -6,33 +6,11 @@ import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
 function UserDashboard() {
   useRedirectLoggedOutUser("/login");
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  // const { products, isLoading, isError, message } = useSelector(
-  //   (state) => state.product
-  // );
-
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      console.log(isLoggedIn);
-      // dispatch(getProducts());
-    }
-
-  }, [isLoggedIn]);
+  
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Card sx={{ height: 60 + "vh" }}>
-            <CardContent></CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ height: 60 + "vh" }}>
-            <CardContent></CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-      {/* </Box> */}
+      <h3>User Dashboard is under development</h3>
+      <div>Will be ready ASAP 😍👍</div>
     </>
   );
 }

@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { getLoginStatus, getUser } from "./redux/auth/authActions";
 import { SET_LOGIN, SET_USER } from "./redux/auth/authSlice";
 import axios from "axios";
+import PostCommentSesion from "./pages/post/PostCommentSesion";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
 const UserDashboardHOC = Layout(UserDashboard);
@@ -30,6 +31,7 @@ const UserAppoitmentHOC = Layout(MyAppointments);
 const MyProfileHOC = Layout(MyProfile);
 const CreatePostHOC = Layout(CreatePost);
 const ReportBugHOC = Layout(ReportBug);
+const PostCommentSessionHOC = Layout(PostCommentSesion);
 
 axios.defaults.withCredentials = true;
 
@@ -60,6 +62,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboardHOC />} />
           <Route path="/user/dashboard" element={<UserDashboardHOC />} />
           <Route path="/user/posts" element={<UserPostHOC />} />
+          <Route path="/post/comments/session/:id" element={<PostCommentSessionHOC />} />
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />

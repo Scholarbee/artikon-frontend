@@ -13,7 +13,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import InfoIcon from "@mui/icons-material/Info";
 import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -34,6 +34,7 @@ const PostCard = ({
 }) => {
 
   const userInfo = useSelector(selectUser);
+  const navigate = useNavigate()
 
   //add like
   const handleAddLike = async () => {
@@ -60,7 +61,7 @@ const PostCard = ({
   };
 
   return (
-    <Card >
+    <Card>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: teal[200] }} aria-label="recipe" />}
         title={title}
@@ -76,7 +77,7 @@ const PostCard = ({
           <Box
             component="span"
             dangerouslySetInnerHTML={{
-              __html: description.split(" ").slice(0, 10).join(" ") + "...",
+              __html: description.split(" ").slice(0, 5).join(" ") + "...",
             }}
           ></Box>
         </Typography>
@@ -106,13 +107,16 @@ const PostCard = ({
           </Box>
           <Box>
             {/* {comments} */}
-            <IconButton aria-label="comment">
+            <IconButton aria-label="info">
               <InfoIcon />
             </IconButton>
           </Box>
           <Box>
             {comments}
-            <IconButton aria-label="comment">
+            <IconButton
+              aria-label="comment"
+              onClick={() => navigate("/post/comments/session/" + id)}
+            >
               <CommentIcon />
             </IconButton>
           </Box>

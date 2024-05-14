@@ -28,8 +28,8 @@ export const deletePost = async (id) => {
 };
 // Get a Product
 export const getPost = async (id) => {
-  const response = await axios.get(API_URL + id);
-  return response.data;
+  const response = await axios.get(API_URL + "post/" + id);
+  return response;
 };
 
 // Update Post
@@ -39,14 +39,14 @@ export const updatePost = async (id, formData) => {
 };
 
 // Add comment
-export const addComment = async (id) => {
-  const response = await axios.put(API_URL + "/add-comment/" + id);
-  return response.data;
+export const addComment = async (id, comment) => {
+  const response = await axios.put(API_URL + "add-comment/" + id, comment);
+  return response;
 };
 
 // Remove comment
 export const removeComment = async (id) => {
-  const response = await axios.put(API_URL + "/remove-comment/" + id);
+  const response = await axios.put(API_URL + "remove-comment/" + id);
   return response.data;
 };
 

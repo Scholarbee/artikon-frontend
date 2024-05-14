@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import HouseIcon from "@mui/icons-material/Home";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,12 +59,15 @@ function Navbar() {
     <AppBar position="static" sx={{ backgroundColor: "teal" }}>
       <Container>
         <Toolbar disableGutters>
-          <HouseIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <HouseIcon
+            onClick={() => navigate("/")}
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -118,7 +122,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

@@ -14,6 +14,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/PostAddRounded";
 import DashIcon from "@mui/icons-material/Dashboard";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AppointmentIcon from "@mui/icons-material/ApprovalOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 import { useState } from "react";
@@ -80,11 +82,7 @@ export default function Sidebar() {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader sx={{ backgroundColor: "teal" }}>
           <IconButton onClick={() => setOpen(!open)}>
-            {!open ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -189,7 +187,7 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                {<AppointmentIcon />}
+                {<LockResetIcon />}
               </ListItemIcon>
               <ListItemText
                 primary={"Change Password"}
@@ -216,7 +214,7 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                {<AppointmentIcon />}
+                {<ManageAccountsIcon />}
               </ListItemIcon>
               <ListItemText
                 primary={"My Profile"}

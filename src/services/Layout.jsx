@@ -10,7 +10,6 @@ const Layout =
     
     return (
       <>
-        {/* <Container> */}
           <div style={{ display: "flex", minHeight: "100vh" }}>
             <Sidebar />
             <Box sx={{ width: "100%", bgcolor: "rgb(232, 232, 232)" }}>
@@ -20,7 +19,6 @@ const Layout =
               </Box>
             </Box>
           </div>
-        {/* </Container> */}
       </>
     );
   };

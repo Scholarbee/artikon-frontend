@@ -13,8 +13,10 @@ import { toast } from "react-toastify";
 import { createPost } from "../../redux/posts/postActions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
 function CreatePost() {
+  useRedirectLoggedOutUser("/login");
   const navigate = useNavigate()
   const [coverPhoto, setCoverPhoto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
