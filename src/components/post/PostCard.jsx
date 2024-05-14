@@ -11,7 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import InfoIcon from "@mui/icons-material/Info";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -66,14 +66,9 @@ const PostCard = ({
         title={title}
         subheader={subheader}
       />
-      <Link to={`/post/${id}`}>
-        <CardMedia
-          component="img"
-          height="240"
-          image={image}
-          alt="Artikon"
-        />
-      </Link>
+      {/* <Link to={`/post/${id}`}> */}
+      <CardMedia component="img" height="240" image={image} alt="Artikon" />
+      {/* </Link> */}
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {/* {content} */}
@@ -108,6 +103,12 @@ const PostCard = ({
               </IconButton>
             )}
             {likes} Like(s)
+          </Box>
+          <Box>
+            {/* {comments} */}
+            <IconButton aria-label="comment">
+              <InfoIcon />
+            </IconButton>
           </Box>
           <Box>
             {comments}
