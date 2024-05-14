@@ -39,33 +39,33 @@ const PostCard = ({
 
   //add like
   const handleAddLike = async () => {
-    setIsLoading(true);
     try {
+      // setIsLoading(true);
       const data = await addLke(id);
       if (data.success == true) {
         showPosts();
-        setIsLoading(false);
+        // setIsLoading(false);
       }
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
   //remove like
   const handleRemoveLike = async () => {
-    setIsLoading(true);
     try {
+      // setIsLoading(true);
       const data = await removeLike(id);
       if (data.success == true) {
         showPosts();
-        setIsLoading(false);
+        // setIsLoading(false);
       }
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
