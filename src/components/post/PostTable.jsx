@@ -38,21 +38,6 @@ const columns = [
   },
 ];
 
-// function createData(name, code, population, size) {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
-
-// const rows = [
-//   {
-//     name: "My Work",
-//     date: "May 4, 24",
-//     appointments: 7,
-//     likes: 5,
-//     comments: 2,
-//   },
-// ];
-
 export default function PostTable({ myPosts }) {
   const [rows, setRows] = React.useState(myPosts);
   const [page, setPage] = React.useState(0);

@@ -12,10 +12,12 @@ import {
 import { toast } from "react-toastify";
 import { createPost } from "../../redux/posts/postActions";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const navigate = useNavigate()
   const [coverPhoto, setCoverPhoto] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     title: "",
     businessType: "",
@@ -36,22 +38,23 @@ function CreatePost() {
 
     if (!title || !description || !businessType || !coverPhoto) {
       toast.info("All fields are required");
-    }
+    } else {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("businessType", businessType);
+      formData.append("description", description);
+      formData.append("my_file", coverPhoto);
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("businessType", businessType);
-    formData.append("description", description);
-    formData.append("my_file", coverPhoto);
-
-    setIsLoading(true)
-    try {
-      await createPost(formData);
-      toast.success("Ad created successfully");
-      setIsLoading(false);
-    } catch (error) {
-      toast.error(error);
-      setIsLoading(false);
+      setIsLoading(true);
+      try {
+        await createPost(formData);
+        toast.success("Ad created successfully");
+        setIsLoading(false);
+        navigate("/user/posts");
+      } catch (error) {
+        toast.error(error);
+        setIsLoading(false);
+      }
     }
   };
 

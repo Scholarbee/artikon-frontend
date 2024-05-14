@@ -18,8 +18,8 @@ import CreatePost from "./pages/post/CreatePost";
 import UserRoute from "./services/UserRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getLoginStatus } from "./redux/auth/authActions";
-import { SET_LOGIN } from "./redux/auth/authSlice";
+import { getLoginStatus, getUser } from "./redux/auth/authActions";
+import { SET_LOGIN, SET_USER } from "./redux/auth/authSlice";
 import axios from "axios";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
@@ -40,6 +40,11 @@ function App() {
     async function loginStatus() {
       const status = await getLoginStatus();
       dispatch(SET_LOGIN(status));
+      if (status) {
+        const user = await getUser();
+        // console.log(user);
+        dispatch(SET_USER(user));
+      }
     }
     loginStatus();
   }, [dispatch]);

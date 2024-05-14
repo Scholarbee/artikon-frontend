@@ -21,34 +21,34 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { teal } from "@mui/material/colors";
 
-const columns = [
-  { id: "name", label: "Brand Name", minWidth: 170 },
-  {
-    id: "date",
-    label: "Date",
-    minWidth: 170,
-  },
-  { id: "appointments", label: "Appointment(s)", minWidth: 100 },
-  {
-    id: "likes",
-    label: "Like(s)",
-    minWidth: 100,
-    align: "right",
-    // format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "comments",
-    label: "Comment(s)",
-    minWidth: 100,
-    align: "right",
-  },
-  {
-    id: "action",
-    label: "Actions",
-    minWidth: 100,
-    // format: (value) => value.toFixed(2),
-  },
-];
+// const columns = [
+//   { id: "name", label: "Brand Name", minWidth: 170 },
+//   {
+//     id: "date",
+//     label: "Date",
+//     minWidth: 170,
+//   },
+//   { id: "appointments", label: "Appointment(s)", minWidth: 100 },
+//   {
+//     id: "likes",
+//     label: "Like(s)",
+//     minWidth: 100,
+//     align: "right",
+//     // format: (value) => value.toLocaleString("en-US"),
+//   },
+//   {
+//     id: "comments",
+//     label: "Comment(s)",
+//     minWidth: 100,
+//     align: "right",
+//   },
+//   {
+//     id: "action",
+//     label: "Actions",
+//     minWidth: 100,
+//     // format: (value) => value.toFixed(2),
+//   },
+// ];
 
 const rows = [
   {
@@ -81,7 +81,7 @@ function MyPosts() {
 
   const myPost = async () => {
     const posts = await getMyPosts();
-    console.log(posts.data);
+    // console.log(posts.data);
     setMyPosts(posts.data);
   };
 
@@ -114,7 +114,7 @@ function MyPosts() {
                 <TableContainer sx={{ maxHeight: 440 }}>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
-                      <TableRow >
+                      <TableRow>
                         <TableCell>Brand Name</TableCell>
                         <TableCell>Type</TableCell>
                         <TableCell>Likes</TableCell>
@@ -143,9 +143,9 @@ function MyPosts() {
                   </Table>
                 </TableContainer>
                 <TablePagination
-                  rowsPerPageOptions={[10, 15, 20, 25, 30, 50, 100]}
+                  rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 50, 100]}
                   component="div"
-                  count={rows.length}
+                  count={myPosts.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={handleChangePage}

@@ -8,6 +8,7 @@ const initialState = {
   isLoggedIn: false,
   // name: name ? name : "",
   user: {
+    id:"",
     name: "",
     email: "",
     phone: "",
@@ -29,11 +30,12 @@ const authSlice = createSlice({
     },
     SET_USER(state, action) {
       const profile = action.payload;
+      state.user.id = profile._id;
       state.user.name = profile.name;
       state.user.email = profile.email;
       state.user.phone = profile.phone;
-      state.user.bio = profile.bio;
-      state.user.photo = profile.photo;
+      // state.user.bio = profile.bio;
+      // state.user.photo = profile.photo;
     },
   },
 });

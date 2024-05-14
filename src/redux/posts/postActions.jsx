@@ -12,7 +12,7 @@ export const createPost = async (formData) => {
 
 // Get all Post
 export const getPosts = async () => {
-  const response = await axios.get(API_URL);
+  const response = await axios.get(API_URL + "/all-posts");
   return response;
 };
 // Get my Post
@@ -35,5 +35,29 @@ export const getPost = async (id) => {
 // Update Post
 export const updatePost = async (id, formData) => {
   const response = await axios.put(`${API_URL}${id}`, formData);
+  return response.data;
+};
+
+// Add comment
+export const addComment = async (id) => {
+  const response = await axios.put(API_URL + "/add-comment/" + id);
+  return response.data;
+};
+
+// Remove comment
+export const removeComment = async (id) => {
+  const response = await axios.put(API_URL + "/remove-comment/" + id);
+  return response.data;
+};
+
+// Add like
+export const addLke = async (id) => {
+  const response = await axios.put(API_URL + "/add-like/" + id);
+  return response.data;
+};
+
+// Remove like
+export const removeLike = async (id) => {
+  const response = await axios.put(API_URL + "/remove-like/" + id);
   return response.data;
 };

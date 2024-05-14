@@ -19,7 +19,7 @@ import { teal } from "@mui/material/colors";
 import { toast } from "react-toastify";
 import { loginUser, validateEmail } from "../../redux/auth/authActions";
 import { useDispatch } from "react-redux";
-import { SET_LOGIN, SET_NAME } from "../../redux/auth/authSlice";
+import { SET_LOGIN, SET_NAME, SET_USER } from "../../redux/auth/authSlice";
 import Loader from "../../components/global/Loader";
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -63,6 +63,8 @@ export default function Login() {
       console.log(data);
       await dispatch(SET_LOGIN(true));
       await dispatch(SET_NAME(data.name));
+      // await dispatch(SET_USER(data));
+      console.log(data);
       if (data.userType === "admin") {
         navigate("/admin/dashboard");
       }
