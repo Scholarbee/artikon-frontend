@@ -6,11 +6,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import CommentIcon from "@mui/icons-material/Comment";
-import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box, Button, Divider, Grid, Stack } from "@mui/material";
 import axios from "axios";
@@ -20,17 +15,13 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { toast } from "react-toastify";
-import Loader from "../../components/global/Loader";
 import CommentList from "../../components/post/CommentList";
 import { addComment, getPost } from "../../redux/posts/postActions";
 import { selectIsLoggedIn } from "../../redux/auth/authSlice";
-import { io } from "socket.io-client";
 import { BACKEND_URL } from "../../redux/auth/authActions";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
-const socket = io("/", {
-  reconnection: true,
-});
+
 
 const PostCommentSesion = () => {
   useRedirectLoggedOutUser("/login");
@@ -43,7 +34,6 @@ const PostCommentSesion = () => {
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [commentsRealTime, setCommentsRealTime] = useState([]);
 
   const { id } = useParams();
 
@@ -69,13 +59,7 @@ const PostCommentSesion = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // console.log('SOCKET IO', socket);
-    socket.on("new-comment", (newComment) => {
-      setCommentsRealTime(newComment);
-    });
-  }, []);
-
+  
   // add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -90,7 +74,6 @@ const PostCommentSesion = () => {
         setComment("");
         toast.success("comment added");
         displaySinglePost();
-        socket.emit("comment", data.post.comments);
       }
     } catch (error) {
       console.log(error);
