@@ -16,7 +16,7 @@ const CommentList = ({ name, text, date }) => {
           width: "100%",
           maxWidth: 360,
           bgcolor: teal[100],
-          borderRadius: 2,
+          borderRadius: "50px 5px 0px 5px",
           margin: "0 0 4px 0",
           padding:"0"
         }}

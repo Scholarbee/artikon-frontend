@@ -46,7 +46,7 @@ const PostCommentSesion = () => {
   const [commentsRealTime, setCommentsRealTime] = useState([]);
 
   const { id } = useParams();
- 
+
   const displaySinglePost = async () => {
     setLoading(true);
     try {
@@ -133,16 +133,18 @@ const PostCommentSesion = () => {
                 </Typography>
               )}
 
-              {comments.map((comment) => (
-                <CommentList
-                  key={comment._id}
-                  name={comment.postedBy.name}
-                  date={moment(comment.createdAt).format(
-                    "MMMM DD, YYYY (HH:MM)"
-                  )}
-                  text={comment.text}
-                />
-              ))}
+              <Box sx={{ overflow: "scroll", maxHeight: 440 }}>
+                {comments.map((comment) => (
+                  <CommentList
+                    key={comment._id}
+                    name={comment.postedBy.name}
+                    date={moment(comment.createdAt).format(
+                      "MMMM DD, YYYY (HH:MM)"
+                    )}
+                    text={comment.text}
+                  />
+                ))}
+              </Box>
 
               {userInfo ? (
                 <Stack>
