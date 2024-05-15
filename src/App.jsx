@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Home from "./pages/global/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/user/Register";
@@ -53,7 +53,8 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
+      <HashRouter>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -62,7 +63,10 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboardHOC />} />
           <Route path="/user/dashboard" element={<UserDashboardHOC />} />
           <Route path="/user/posts" element={<UserPostHOC />} />
-          <Route path="/post/comments/session/:id" element={<PostCommentSessionHOC />} />
+          <Route
+            path="/post/comments/session/:id"
+            element={<PostCommentSessionHOC />}
+          />
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />
@@ -72,7 +76,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:tk" element={<ResetPassword />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
+      {/* </BrowserRouter> */}
     </>
   );
 }
