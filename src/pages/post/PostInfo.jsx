@@ -48,6 +48,7 @@ function PostInfo() {
   const [image, setImage] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
@@ -93,6 +94,7 @@ function PostInfo() {
   // Place order
   const handleOrders = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const { data } = await axios.put(
         `${BACKEND_URL}/api/posts/post/place-order/${id}`,
@@ -108,13 +110,16 @@ function PostInfo() {
       );
       console.log(data);
       if (data.success === true) {
+        setIsLoading(false);
         toast.success("Order has been placed successfully");
         setOpen(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       toast.error(error);
     }
+    setIsLoading(false);
   };
 
   /**
@@ -125,6 +130,7 @@ function PostInfo() {
    */
   const handleAppointments = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const { data } = await axios.put(
         `${BACKEND_URL}/api/posts/post/book-appointment/${id}`,
@@ -139,13 +145,16 @@ function PostInfo() {
         }
       );
       if (data.success === true) {
+        setIsLoading(false);
         toast.success("Appointment has been booked successfully");
         setOpen(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       toast.error(error);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -363,7 +372,7 @@ function PostInfo() {
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >
-                    Book Appointment
+                    {isLoading ? "Process..." : "Book Appointment"}
                   </Button>
                 ) : (
                   <Button
@@ -374,7 +383,7 @@ function PostInfo() {
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >
-                    Place Order
+                    {isLoading ? "Process..." : "Place Order"}
                   </Button>
                 )}
               </Stack>
