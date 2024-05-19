@@ -109,6 +109,7 @@ function PostInfo() {
       console.log(data);
       if (data.success === true) {
         toast.success("Order has been placed successfully");
+        setOpen(false);
       }
     } catch (error) {
       console.log(error);
@@ -139,6 +140,7 @@ function PostInfo() {
       );
       if (data.success === true) {
         toast.success("Appointment has been booked successfully");
+        setOpen(false);
       }
     } catch (error) {
       console.log(error);
