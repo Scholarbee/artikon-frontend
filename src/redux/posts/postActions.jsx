@@ -26,9 +26,14 @@ export const deletePost = async (id) => {
   const response = await axios.delete(API_URL + id);
   return response.data;
 };
-// Get a Product
+// Get a post
 export const getPost = async (id) => {
   const response = await axios.get(API_URL + "post/" + id);
+  return response;
+};
+// Get a post info
+export const getPostInfo = async (id) => {
+  const response = await axios.get(API_URL + "post-info/" + id);
   return response;
 };
 

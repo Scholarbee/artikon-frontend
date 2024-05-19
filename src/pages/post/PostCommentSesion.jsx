@@ -21,8 +21,6 @@ import { selectIsLoggedIn } from "../../redux/auth/authSlice";
 import { BACKEND_URL } from "../../redux/auth/authActions";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
-
-
 const PostCommentSesion = () => {
   useRedirectLoggedOutUser("/login");
   const userInfo = useSelector(selectIsLoggedIn);
@@ -59,7 +57,6 @@ const PostCommentSesion = () => {
     }
   }, []);
 
-  
   // add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -98,7 +95,15 @@ const PostCommentSesion = () => {
               title={title}
               subheader={moment(createdAt).format("MMMM DD, YYYY")}
             />
-            <CardMedia component="img" height="350" image={image} alt={title} />
+
+            <Grid xs={12} md={ 6 }>
+              <CardMedia
+                component="img"
+                height="auto"
+                image={image}
+                alt={title}
+              />
+            </Grid>
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 <Box

@@ -17,7 +17,7 @@ function ResetPassword() {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const { tk } = useParams();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const changePassword = async (e) => {
     e.preventDefault();
@@ -33,9 +33,9 @@ function ResetPassword() {
 
     try {
       const result = await resetPassword(data, tk);
+      navigate("/login");
       toast(result.message);
       toast("Password reset successfully");
-      navigator("/login");
     } catch (error) {
       toast.error(error.message);
     }

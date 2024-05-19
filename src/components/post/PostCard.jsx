@@ -121,7 +121,10 @@ const PostCard = ({
           </Box>
           <Box>
             {/* {comments} */}
-            <IconButton aria-label="info">
+            <IconButton
+              aria-label="info"
+              onClick={() => navigate("/post/info/" + id)}
+            >
               <InfoIcon />
             </IconButton>
           </Box>
