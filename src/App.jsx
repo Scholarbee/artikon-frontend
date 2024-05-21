@@ -23,8 +23,11 @@ import { SET_LOGIN, SET_USER } from "./redux/auth/authSlice";
 import axios from "axios";
 import PostCommentSesion from "./pages/post/PostCommentSesion";
 import PostInfo from "./pages/post/PostInfo";
+import ManageUsers from "./pages/admin/ManageUsers";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
+const ManageUsersHOC = Layout(ManageUsers);
+const ManagePostHOC = Layout(ManageUsers);
 const UserDashboardHOC = Layout(UserDashboard);
 const UserChangePwdHOC = Layout(ChangePassword);
 const UserPostHOC = Layout(MyPosts);
@@ -63,16 +66,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin/dashboard" element={<AdminDashboardHOC />} />
+          <Route path="/admin/manage-users" element={<ManageUsersHOC />} />
+          <Route path="/admin/manage-posts" element={<ManagePostHOC />} />
           <Route path="/user/dashboard" element={<UserDashboardHOC />} />
           <Route path="/user/posts" element={<UserPostHOC />} />
           <Route
             path="/post/comments/session/:id"
             element={<PostCommentSessionHOC />}
           />
-          <Route
-            path="/post/info/:id"
-            element={<PostInfoHOC />}
-          />
+          <Route path="/post/info/:id" element={<PostInfoHOC />} />
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />
