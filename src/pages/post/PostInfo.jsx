@@ -367,23 +367,25 @@ function PostInfo() {
                   <Button
                     href=""
                     variant="contained"
+                    disabled={isLoading}
                     onClick={handleAppointments}
                     sx={{ backgroundColor: "teal" }}
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >
-                    {isLoading ? "Process..." : "Book Appointment"}
+                    {isLoading ? "Processing..." : "Book Appointment"}
                   </Button>
                 ) : (
                   <Button
                     href=""
+                    disabled={isLoading}
                     variant="contained"
                     onClick={handleOrders}
                     sx={{ backgroundColor: "teal" }}
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >
-                    {isLoading ? "Process..." : "Place Order"}
+                    {isLoading ? "Processing..." : "Place Order"}
                   </Button>
                 )}
               </Stack>

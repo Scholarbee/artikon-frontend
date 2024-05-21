@@ -21,6 +21,18 @@ export const getMyPosts = async () => {
   return response;
 };
 
+// Get my appointments
+export const getMyAppointments = async () => {
+  const response = await axios.get(API_URL + "received-appointments");
+  return response;
+};
+
+// Get my oders
+export const getMyOrders = async () => {
+  const response = await axios.get(API_URL + "received-orders");
+  return response;
+};
+
 // Delete a Post
 export const deletePost = async (id) => {
   const response = await axios.delete(API_URL + id);
