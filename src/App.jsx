@@ -24,10 +24,11 @@ import axios from "axios";
 import PostCommentSesion from "./pages/post/PostCommentSesion";
 import PostInfo from "./pages/post/PostInfo";
 import ManageUsers from "./pages/admin/ManageUsers";
+import ManagePosts from "./pages/admin/ManagePosts";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
 const ManageUsersHOC = Layout(ManageUsers);
-const ManagePostHOC = Layout(ManageUsers);
+const ManagePostHOC = Layout(ManagePosts);
 const UserDashboardHOC = Layout(UserDashboard);
 const UserChangePwdHOC = Layout(ChangePassword);
 const UserPostHOC = Layout(MyPosts);

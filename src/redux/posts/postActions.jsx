@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const API_URL = `${BACKEND_URL}/api/posts/`;
+const API_URL = `${BACKEND_URL}/api/posts`;
 
 // Create New Post
 export const createPost = async (formData) => {
@@ -15,6 +15,11 @@ export const getPosts = async () => {
   const response = await axios.get(API_URL + "/all-posts");
   return response;
 };
+// Get all Post BY ADMIN
+export const adminGetPosts = async () => {
+  const response = await axios.get(API_URL + "/");
+  return response;
+};
 // Get my Post
 export const getMyPosts = async () => {
   const response = await axios.get(API_URL + "/my-posts");
@@ -23,13 +28,13 @@ export const getMyPosts = async () => {
 
 // Get my appointments
 export const getMyAppointments = async () => {
-  const response = await axios.get(API_URL + "received-appointments");
+  const response = await axios.get(API_URL + "/received-appointments");
   return response;
 };
 
 // Get my oders
 export const getMyOrders = async () => {
-  const response = await axios.get(API_URL + "received-orders");
+  const response = await axios.get(API_URL + "/received-orders");
   return response;
 };
 
@@ -40,12 +45,12 @@ export const deletePost = async (id) => {
 };
 // Get a post
 export const getPost = async (id) => {
-  const response = await axios.get(API_URL + "post/" + id);
+  const response = await axios.get(API_URL + "/post/" + id);
   return response;
 };
 // Get a post info
 export const getPostInfo = async (id) => {
-  const response = await axios.get(API_URL + "post-info/" + id);
+  const response = await axios.get(API_URL + "/post-info/" + id);
   return response;
 };
 
@@ -57,13 +62,13 @@ export const updatePost = async (id, formData) => {
 
 // Add comment
 export const addComment = async (id, comment) => {
-  const response = await axios.put(API_URL + "add-comment/" + id, comment);
+  const response = await axios.put(API_URL + "/add-comment/" + id, comment);
   return response;
 };
 
 // Remove comment
 export const removeComment = async (id) => {
-  const response = await axios.put(API_URL + "remove-comment/" + id);
+  const response = await axios.put(API_URL + "/remove-comment/" + id);
   return response.data;
 };
 
@@ -76,5 +81,15 @@ export const addLke = async (id) => {
 // Remove like
 export const removeLike = async (id) => {
   const response = await axios.put(API_URL + "/remove-like/" + id);
+  return response.data;
+};
+// Block Post
+export const adminBlockPost = async (id, formData) => {
+  const response = await axios.put(API_URL + "/block-post/" + id, formData);
+  return response.data;
+};
+// Unblock Post
+export const adminUnblockPost = async (id, formData) => {
+  const response = await axios.put(API_URL + "/unblock-post/" + id, formData);
   return response.data;
 };

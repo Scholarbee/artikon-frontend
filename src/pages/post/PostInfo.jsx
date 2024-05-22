@@ -33,7 +33,6 @@ import Loader from "../../components/global/Loader";
 
 function PostInfo() {
   useRedirectLoggedOutUser("/login");
-  const userInfo = useSelector(selectIsLoggedIn);
 
   const [open, setOpen] = useState(false);
 
