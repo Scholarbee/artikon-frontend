@@ -10,8 +10,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import ArchiveIcon from "@mui/icons-material/Archive";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import IsoIcon from "@mui/icons-material/Iso";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InboxIcon from "@mui/icons-material/PostAddRounded";
 import DashIcon from "@mui/icons-material/Dashboard";
 import LockResetIcon from "@mui/icons-material/LockReset";
@@ -71,9 +75,12 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar() {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const style = {
+    opacity: open ? 1 : 0,
+    color: "teal",
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -108,10 +115,7 @@ export default function Sidebar() {
               >
                 {<DashIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"Dashboard"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"Dashboard"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -135,10 +139,7 @@ export default function Sidebar() {
               >
                 {<InboxIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"My Post"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"My Post"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -160,12 +161,9 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                {<AppointmentIcon />}
+                {<PeopleOutlineIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"Manage Users"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"Manage Users"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -187,12 +185,9 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                {<AppointmentIcon />}
+                {<IsoIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"Manage Posts"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"Manage Posts"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -216,10 +211,7 @@ export default function Sidebar() {
               >
                 {<AppointmentIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"My Appointments"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"My Appointments"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -243,10 +235,31 @@ export default function Sidebar() {
               >
                 {<LockResetIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"Change Password"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"Change Password"} sx={style} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => navigate("/post/orders-and-books")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                {<ManageAccountsIcon />}
+              </ListItemIcon>
+              <ListItemText primary={"Orders & Books"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -268,12 +281,33 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                {<ManageAccountsIcon />}
+                {<AccountBoxIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"My Profile"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"My Profile"} sx={style} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => navigate("")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                {<ArchiveIcon />}
+              </ListItemIcon>
+              <ListItemText primary={"Archives"} sx={style} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -297,10 +331,7 @@ export default function Sidebar() {
               >
                 {<ReportIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={"Report Bug"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
+              <ListItemText primary={"Report Bug"} sx={style} />
             </ListItemButton>
           </ListItem>
         </List>
@@ -308,3 +339,8 @@ export default function Sidebar() {
     </Box>
   );
 }
+
+const style = {
+  opacity: open ? 1 : 0,
+  color: "teal",
+};

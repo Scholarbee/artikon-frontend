@@ -25,6 +25,7 @@ import PostCommentSesion from "./pages/post/PostCommentSesion";
 import PostInfo from "./pages/post/PostInfo";
 import ManageUsers from "./pages/admin/ManageUsers";
 import ManagePosts from "./pages/admin/ManagePosts";
+import BooksAndOrders from "./pages/user/BooksAndOrders";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
 const ManageUsersHOC = Layout(ManageUsers);
@@ -38,6 +39,7 @@ const CreatePostHOC = Layout(CreatePost);
 const ReportBugHOC = Layout(ReportBug);
 const PostCommentSessionHOC = Layout(PostCommentSesion);
 const PostInfoHOC = Layout(PostInfo);
+const UserBooksAndOrdersHOC = Layout(BooksAndOrders);
 
 axios.defaults.withCredentials = true;
 
@@ -79,6 +81,7 @@ function App() {
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />
+          <Route path="/post/orders-and-books" element={<UserBooksAndOrdersHOC />} />
           <Route path="/profile" element={<MyProfileHOC />} />
           <Route path="/report-bug" element={<ReportBugHOC />} />
           <Route path="/report-bug" element={<ReportBugHOC />} />
