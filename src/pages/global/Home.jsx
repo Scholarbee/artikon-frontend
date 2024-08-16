@@ -54,6 +54,7 @@ function Home() {
               autoPlay={true}
               navButtonsAlwaysVisible={isSmallScreen}
               interval={3000}
+              animation="slide"
               next={(next, active) => <Button>{<KeyboardArrowRight />}</Button>}
               prev={(prev, active) => <Button>{<KeyboardArrowLeft />}</Button>}
             >

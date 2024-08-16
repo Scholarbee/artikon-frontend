@@ -153,8 +153,8 @@ function Navbar() {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              <Link to="" style={{ color: "white", textDecoration: "none" }}>
-                About Us
+              <Link to="/user/dashboard" style={{ color: "white", textDecoration: "none" }}>
+                Dashboard
               </Link>
             </Typography>
           </Box>

@@ -6,8 +6,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import PostTable from "../../components/post/PostTable";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { getMyPosts } from "../../redux/posts/postActions";
@@ -19,48 +18,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { teal } from "@mui/material/colors";
-
-// const columns = [
-//   { id: "name", label: "Brand Name", minWidth: 170 },
-//   {
-//     id: "date",
-//     label: "Date",
-//     minWidth: 170,
-//   },
-//   { id: "appointments", label: "Appointment(s)", minWidth: 100 },
-//   {
-//     id: "likes",
-//     label: "Like(s)",
-//     minWidth: 100,
-//     align: "right",
-//     // format: (value) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "comments",
-//     label: "Comment(s)",
-//     minWidth: 100,
-//     align: "right",
-//   },
-//   {
-//     id: "action",
-//     label: "Actions",
-//     minWidth: 100,
-//     // format: (value) => value.toFixed(2),
-//   },
-// ];
-
-// const rows = [
-//   {
-//     name: "My Work",
-//     date: "May 4, 24",
-//     appointments: 7,
-//     likes: 5,
-//     comments: 2,
-//   },
-// ];
+import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
 function MyPosts() {
+  useRedirectLoggedOutUser();
   // const [rows, setRows] = React.useState(myPosts);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

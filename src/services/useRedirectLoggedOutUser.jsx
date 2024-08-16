@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,7 +16,7 @@ const useRedirectLoggedOutUser = (path) => {
 
       if (!isLoggedIn) {
         toast.info("Session expired, please login to continue.");
-        navigate(path);
+        navigate("/login");
         return;
       }
     };

@@ -18,8 +18,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMyAppointments, getMyOrders } from "../../redux/posts/postActions";
 import moment from "moment";
+import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
 function MyAppointments() {
+  useRedirectLoggedOutUser();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [myAppointments, setMyAppointments] = useState([]);

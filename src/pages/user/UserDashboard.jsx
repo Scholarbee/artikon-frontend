@@ -7,8 +7,10 @@ import { getPosts } from "../../redux/posts/postActions";
 import { toast } from "react-toastify";
 import moment from "moment";
 import Loader from "../../components/global/Loader";
+import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
 function UserDashboard() {
+  useRedirectLoggedOutUser()
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 

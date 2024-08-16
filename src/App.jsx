@@ -68,7 +68,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin/dashboard" element={<AdminDashboardHOC />} />
+          <Route path="/admin/dashboard" element={<UserDashboardHOC />} />
           <Route path="/admin/manage-users" element={<ManageUsersHOC />} />
           <Route path="/admin/manage-posts" element={<ManagePostHOC />} />
           <Route path="/user/dashboard" element={<UserDashboardHOC />} />
@@ -81,7 +81,10 @@ function App() {
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />
-          <Route path="/post/orders-and-books" element={<UserBooksAndOrdersHOC />} />
+          <Route
+            path="/post/orders-and-books"
+            element={<UserBooksAndOrdersHOC />}
+          />
           <Route path="/profile" element={<MyProfileHOC />} />
           <Route path="/report-bug" element={<ReportBugHOC />} />
           <Route path="/report-bug" element={<ReportBugHOC />} />
