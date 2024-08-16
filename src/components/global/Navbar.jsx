@@ -20,6 +20,8 @@ import { SET_LOGIN, selectIsLoggedIn } from "../../redux/auth/authSlice";
 import { logoutUser } from "../../redux/auth/authActions";
 // import { userLogoutAction } from "../redux/actions/userAction";
 
+
+
 const pages = ["Home", "Login"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -56,13 +58,12 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "teal" }}>
+    <AppBar position="static" sx={{ backgroundColor: "rgba(0,0,0,.7)" }}>
       <Container>
         <Toolbar disableGutters>
-          <HouseIcon
-            onClick={() => navigate("/")}
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-          />
+          <Button onClick={() => navigate("/")}>
+            <Avatar alt="logo" src="/logo.png" sx={{ width: 70, height: 70 }} />
+          </Button>
           <Typography
             variant="h6"
             noWrap
@@ -117,7 +118,9 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <HouseIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          {/* <Button onClick={() => navigate("/")}>
+            <Avatar alt="logo" src="/logo.png" sx={{ width: 70, height: 70 }} />
+          </Button> */}
           <Typography
             variant="h5"
             noWrap
@@ -137,8 +140,6 @@ function Navbar() {
             ArtiKon
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* menu desktop */}
-
             <Typography
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block", mr: 2 }}
