@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,11 +15,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/global/Navbar";
 import Footer from "../../components/global/Footer";
-import { teal } from "@mui/material/colors";
 import { toast } from "react-toastify";
 import { loginUser, validateEmail } from "../../redux/auth/authActions";
 import { useDispatch } from "react-redux";
-import { SET_LOGIN, SET_NAME, SET_USER } from "../../redux/auth/authSlice";
+import { SET_LOGIN, SET_NAME, SET_TOKEN, SET_USER } from "../../redux/auth/authSlice";
 import Loader from "../../components/global/Loader";
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -60,14 +59,12 @@ export default function Login() {
     setIsLoading(true);
     try {
       const data = await loginUser(userData);
-      console.log(data);
-      await dispatch(SET_LOGIN(true));
-      await dispatch(SET_NAME(data.name));
-      // await dispatch(SET_USER(data));
-      console.log(data);
-      if (data.userType === "admin") {
-        navigate("/admin/dashboard");
-      }
+      // console.log(data);
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_TOKEN(data.token));
+      dispatch(SET_NAME(data.firstName + " " + data.surname));
+      dispatch(SET_USER(data));
+      // console.log(data);
       navigate("/user/dashboard");
       setIsLoading(false);
     } catch (error) {
@@ -88,8 +85,10 @@ export default function Login() {
             sm={6}
             md={6}
             sx={{
+              // backgroundImage:
+              //   "url(https://source.unsplash.com/random?wallpapers)",
               backgroundImage:
-                "url(https://source.unsplash.com/random?wallpapers)",
+                "/p4.jpg",
               backgroundRepeat: "no-repeat",
               backgroundColor: (t) =>
                 t.palette.mode === "light"

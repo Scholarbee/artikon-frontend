@@ -15,11 +15,13 @@ const Layout =
           <Box
             sx={{
               p: 2,
-              backgroundImage: "url('/bg3.jpg')",
-              backgroundSize: "cover",
-              minHeight: "100vh",
-              backgroundAttachment: "fixed", // Ensures the background image stays fixed while scrolling
-              backgroundPosition: "center",
+              backgroundColor: "rgba(0,0,0,.7)",
+              flexGrow: 1,
+              // backgroundImage: "url('/Picture3.jpg')",
+              // backgroundSize: "cover",
+              // minHeight: "100vh",
+              // backgroundAttachment: "fixed", // Ensures the background image stays fixed while scrolling
+              // backgroundPosition: "center",
             }}
           >
             <Component {...props} />

@@ -26,6 +26,8 @@ import PostInfo from "./pages/post/PostInfo";
 import ManageUsers from "./pages/admin/ManageUsers";
 import ManagePosts from "./pages/admin/ManagePosts";
 import BooksAndOrders from "./pages/user/BooksAndOrders";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
 const ManageUsersHOC = Layout(ManageUsers);
@@ -46,18 +48,18 @@ axios.defaults.withCredentials = true;
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function loginStatus() {
-      const status = await getLoginStatus();
-      dispatch(SET_LOGIN(status));
-      if (status) {
-        const user = await getUser();
-        // console.log(user);
-        dispatch(SET_USER(user));
-      }
-    }
-    loginStatus();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   async function loginStatus() {
+  //     const status = await getLoginStatus();
+  //     dispatch(SET_LOGIN(status));
+  //     if (status) {
+  //       const user = await getUser();
+  //       // console.log(user);
+  //       dispatch(SET_USER(user));
+  //     }
+  //   }
+  //   loginStatus();
+  // }, [dispatch]);
 
   return (
     <>
@@ -66,8 +68,8 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin/dashboard" element={<UserDashboardHOC />} />
           <Route path="/admin/manage-users" element={<ManageUsersHOC />} />
           <Route path="/admin/manage-posts" element={<ManagePostHOC />} />

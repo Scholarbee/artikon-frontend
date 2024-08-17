@@ -6,15 +6,13 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red, teal } from "@mui/material/colors";
+import { teal } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
-import ShareIcon from "@mui/icons-material/Share";
 import InfoIcon from "@mui/icons-material/Info";
 import { Box } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addLke, removeLike } from "../../redux/posts/postActions";
@@ -70,17 +68,29 @@ const PostCard = ({
   };
 
   return (
-    <Card>
+    <Card sx={{ backgroundColor: "rgb(38, 38, 38)", color: "white" }}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: teal[200] }} aria-label="recipe" />}
-        title={title}
-        subheader={subheader}
+        sx={{ color: "white" }}
+        avatar={<Avatar sx={{ bgcolor: "#f57eb6" }} aria-label="recipe" />}
+        title={
+          <Typography variant="h6" sx={{ fontSize: "0.8rem" }}>
+            {title}
+          </Typography>
+        }
+        subheader={
+          <Typography
+            variant="body2"
+            sx={{ fontSize: "0.5rem", color: "rgba(255, 255, 255, 0.5)" }}
+          >
+            {subheader}
+          </Typography>
+        }
       />
       {/* <Link to={`/post/${id}`}> */}
       <CardMedia component="img" height="240" image={image} alt="Artikon" />
       {/* </Link> */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="smokewhite">
           {/* {content} */}
 
           <Box
@@ -100,13 +110,13 @@ const PostCard = ({
           }}
         >
           <Box>
-            {likesId.includes(userInfo && userInfo.id) ? (
+            {likesId.includes(userInfo && userInfo._id) ? (
               <IconButton
                 disabled={isLoading}
                 onClick={handleRemoveLike}
                 aria-label="add to favorites"
               >
-                <FavoriteIcon sx={{ color: "teal" }} />
+                <FavoriteIcon sx={{ color: "#f57eb6" }} />
               </IconButton>
             ) : (
               <IconButton
@@ -114,7 +124,7 @@ const PostCard = ({
                 onClick={handleAddLike}
                 aria-label="add to favorites"
               >
-                <FavoriteBorderIcon sx={{ color: "teal" }} />
+                <FavoriteBorderIcon sx={{ color: "#f57eb6" }} />
               </IconButton>
             )}
             {likes} Like(s)
@@ -125,16 +135,17 @@ const PostCard = ({
               aria-label="info"
               onClick={() => navigate("/post/info/" + id)}
             >
-              <InfoIcon />
+              <InfoIcon sx={{ color: "rgb(78, 140, 255)" }} />
             </IconButton>
           </Box>
           <Box>
             {comments}
             <IconButton
               aria-label="comment"
+              // color={teal}
               onClick={() => navigate("/post/comments/session/" + id)}
             >
-              <CommentIcon />
+              <CommentIcon sx={{ color: "#00695c" }} />
             </IconButton>
           </Box>
         </Box>

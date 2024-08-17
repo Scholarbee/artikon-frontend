@@ -38,7 +38,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "rgba(0,0,0,.7)" }}>
+    <AppBar position="static" sx={{ backgroundColor: "rgb(38, 38, 38)" }}>
       <Container>
         <Toolbar disableGutters>
           <Button onClick={() => navigate("/")}>
@@ -54,8 +54,8 @@ function Navbar() {
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
+              letterSpacing: ".5rem",
+              color: "#f57eb6",
               textDecoration: "none",
             }}
           >
@@ -83,18 +83,39 @@ function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    to={`/`}
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
+                    {"Home"}
+                  </Link>
+                </Typography>
+              </MenuItem>
+              {isLoggedIn ? (
+                <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     <Link
-                      to={`/${page.toLowerCase()}`}
+                      to={`/user/dashboard`}
                       style={{ color: "black", textDecoration: "none" }}
                     >
-                      {page}
+                      {"Dashboard"}
                     </Link>
                   </Typography>
                 </MenuItem>
-              ))}
+              ) : (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link
+                      to={`/login`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
+                      {"Login"}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
 
@@ -110,27 +131,43 @@ function Navbar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#f57eb6",
               textDecoration: "none",
             }}
           >
             ArtiKon
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Typography
-                key={page}
-                onClick={handleCloseNavMenu}
+            <Button
+              onClick={() => {
+                handleCloseNavMenu();
+                navigate("/");
+              }}
+              sx={{ my: 2, color: "white", display: "block", mr: 2 }}
+            >
+              Home
+            </Button>
+            {isLoggedIn ? (
+              <Button
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("/user/dashboard");
+                }}
                 sx={{ my: 2, color: "white", display: "block", mr: 2 }}
               >
-                <Link
-                  to={`/${page.toLowerCase()}`}
-                  style={{ color: "white", textDecoration: "none" }}
-                >
-                  {page}
-                </Link>
-              </Typography>
-            ))}
+                Dashboard
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("/login");
+                }}
+                sx={{ my: 2, color: "white", display: "block", mr: 2 }}
+              >
+                Login
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

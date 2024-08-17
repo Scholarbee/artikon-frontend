@@ -96,7 +96,8 @@ const PostCommentSesion = () => {
               subheader={moment(createdAt).format("MMMM DD, YYYY")}
             />
 
-            <Grid xs={12} md={ 6 }>
+            {/* <Grid xs={12} md={ 6 }> */}
+            <Grid item xs={12} md={ 6 }>
               <CardMedia
                 component="img"
                 height="auto"

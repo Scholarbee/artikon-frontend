@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Navbar from "../../components/global/Navbar";
 import PostCard from "../../components/post/PostCard";
 import Footer from "../../components/global/Footer";
@@ -33,7 +41,6 @@ function Home() {
     try {
       const data = await getPosts();
       setPosts(data.data);
-      false;
     } catch (error) {
       toast.error(error.message);
     }
