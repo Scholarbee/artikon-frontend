@@ -1,51 +1,68 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../styles/Login.scss";
-// import { setLogin } from "../redux/state";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  SET_LOGIN,
+  SET_NAME,
+  SET_TOKEN,
+  SET_USER,
+} from "../../redux/auth/authSlice";
+import { loginUser, validateEmail } from "../../redux/auth/authActions";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      return toast.error("All fields are required");
+    }
+
+    if (!validateEmail(email)) {
+      return toast.error("Please enter a valid email");
+    }
+
+    const userData = {
+      email,
+      password,
+    };
+    setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      /* Get data after fetching */
-      const loggedIn = await response.json();
-
-      if (loggedIn) {
-        dispatch(
-          setLogin({
-            user: loggedIn.user,
-            token: loggedIn.token,
-          })
-        );
-        navigate("/");
-      }
-    } catch (err) {
-      console.log("Login failed", err.message);
+      const data = await loginUser(userData);
+      // console.log(data);
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_TOKEN(data.token));
+      dispatch(SET_NAME(data.firstName + " " + data.surname));
+      dispatch(SET_USER(data));
+      // console.log(data);
+      navigate("/user/dashboard");
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="login">
-      <div style={{width:"100%", height:"100%", display:"flex",justifyContent:"center", alignItems:"center"}}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <div className="login_content">
-          <form className="login_content_form" onSubmit={handleSubmit}>
+          <form className="login_content_form" onSubmit={handleLogin}>
             {/* <img style={{height:150, width:150}} src="/logo.png" alt="" /> */}
             <input
               type="email"
