@@ -75,8 +75,8 @@ export default function Register() {
     try {
       const data = await registerUser(userData);
       console.log(data);
-      await dispatch(SET_LOGIN(true));
-      await dispatch(SET_NAME(data.name));
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_NAME(data.name));
       // navigate("/dashboard");
       setIsLoading(false);
       toast.success("Success");
