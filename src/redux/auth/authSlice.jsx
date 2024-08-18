@@ -6,13 +6,11 @@ const initialState = {
   token: "",
   user: {
     _id: "",
-    firstName: "",
-    surname: "",
-    otherName: "",
+    name: "",
     email: "",
     phone: "",
     photo: "",
-    address: "",
+    city: "",
     role: "",
   },
 };
@@ -33,13 +31,11 @@ const authSlice = createSlice({
     SET_USER(state, action) {
       const profile = action.payload;
       state.user._id = profile._id;
-      state.user.firstName = profile.firstName;
-      state.user.surname = profile.surname;
-      state.user.otherName = profile.otherName;
+      state.user.name = profile.name;
       state.user.email = profile.email;
       state.user.phone = profile.phone;
       state.user.photo = profile.photo;
-      state.user.address = profile.address;
+      state.user.city = profile.city;
       state.user.role = profile.role;
     },
   },

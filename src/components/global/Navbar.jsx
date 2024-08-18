@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_LOGIN, selectIsLoggedIn } from "../../redux/auth/authSlice";
+import { SET_LOGIN, selectIsLoggedIn, selectUser } from "../../redux/auth/authSlice";
 import { logoutUser } from "../../redux/auth/authActions";
 
 const pages = ["Home", "Dashboard"];
@@ -22,6 +22,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const userInfo = useSelector(selectUser);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -173,7 +174,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="" />
+                <Avatar alt="User Avatar" src={userInfo.photo} />
               </IconButton>
             </Tooltip>
             <Menu

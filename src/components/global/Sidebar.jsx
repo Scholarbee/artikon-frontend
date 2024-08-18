@@ -24,6 +24,75 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AppointmentIcon from "@mui/icons-material/ApprovalOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 
+
+
+export default function Sidebar() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const itemTextStyle = {
+    opacity: open ? 1 : 0,
+    color: open ? "#e0e0e0" : "#b0b0b0", // Slightly lighter gray for closed state
+  };
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader sx={{ backgroundColor: "rgb(85, 0, 70)" }}>
+          {" "}
+          {/* Darker purple background */}
+          <IconButton onClick={() => setOpen(!open)}>
+            {!open ? (
+              <ChevronRightIcon sx={{ color: "#e0e0e0" }} />
+            ) : (
+              <ChevronLeftIcon sx={{ color: "#e0e0e0" }} />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider sx={{ backgroundColor: "#e0e0e0" }} />{" "}
+        {/* Light gray divider */}
+        <List sx={{ backgroundColor: "rgb(85, 0, 70)", flexGrow: 1 }}>
+          {" "}
+          {/* Darker purple background */}
+          {menuItems.map((item) => (
+            <ListItem
+              key={item.text}
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => navigate(item.path)}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                    color: "#e0e0e0", // Light icon color
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} sx={itemTextStyle} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
+  );
+}
+
 const drawerWidth = 230;
 
 const openedMixin = (theme) => ({
@@ -106,70 +175,3 @@ const menuItems = [
   { text: "Archives", icon: <ArchiveIcon />, path: "/archives" },
   { text: "Report Bug", icon: <ReportIcon />, path: "/report-bug" },
 ];
-
-export default function Sidebar() {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const itemTextStyle = {
-    opacity: open ? 1 : 0,
-    color: open ? "#e0e0e0" : "#b0b0b0", // Slightly lighter gray for closed state
-  };
-
-  return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader sx={{ backgroundColor: "rgb(85, 0, 70)" }}>
-          {" "}
-          {/* Darker purple background */}
-          <IconButton onClick={() => setOpen(!open)}>
-            {!open ? (
-              <ChevronRightIcon sx={{ color: "#e0e0e0" }} />
-            ) : (
-              <ChevronLeftIcon sx={{ color: "#e0e0e0" }} />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider sx={{ backgroundColor: "#e0e0e0" }} />{" "}
-        {/* Light gray divider */}
-        <List sx={{ backgroundColor: "rgb(85, 0, 70)", flexGrow: 1 }}>
-          {" "}
-          {/* Darker purple background */}
-          {menuItems.map((item) => (
-            <ListItem
-              key={item.text}
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => navigate(item.path)}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
-                  },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    color: "#e0e0e0", // Light icon color
-                  }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} sx={itemTextStyle} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
-  );
-}
