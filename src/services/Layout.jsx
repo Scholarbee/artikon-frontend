@@ -16,10 +16,10 @@ const Layout =
             sx={{
               p: 2,
               backgroundColor: "rgba(0,0,0,.7)",
-              flexGrow: 1,
+              // flexGrow: 1,
               // backgroundImage: "url('/Picture3.jpg')",
               // backgroundSize: "cover",
-              // minHeight: "100vh",
+              minHeight: "90vh",
               // backgroundAttachment: "fixed", // Ensures the background image stays fixed while scrolling
               // backgroundPosition: "center",
             }}

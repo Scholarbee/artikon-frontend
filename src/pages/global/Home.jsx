@@ -84,33 +84,52 @@ function Home() {
               ))}
             </Carousel>
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+          {posts.length !== 0 ? (
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid
+                container
+                spacing={{ xs: 2, md: 3 }}
+                columns={{ xs: 4, sm: 8, md: 12 }}
+              >
+                {loading ? (
+                  <Loader />
+                ) : (
+                  posts.map((post, index) => (
+                    <Grid item xs={12} sm={4} md={4} key={index}>
+                      <PostCard
+                        id={post._id}
+                        title={post.title}
+                        description={post.description ? post.description : ""}
+                        image={post.coverPhoto ? post.coverPhoto.url : ""}
+                        subheader={moment(post.createdAt).format(
+                          "MMMM DD, YYYY"
+                        )}
+                        comments={post.comments.length}
+                        likes={post.likes.length}
+                        likesId={post.likes}
+                        showPosts={showPosts}
+                      />
+                    </Grid>
+                  ))
+                )}
+              </Grid>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                backgroundColor: "#f57eb6",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                  minHeight: "200px",
+                borderRadius:"20% 20%"
+              }}
             >
-              {loading ? (
-                <Loader />
-              ) : (
-                posts.map((post, index) => (
-                  <Grid item xs={12} sm={4} md={4} key={index}>
-                    <PostCard
-                      id={post._id}
-                      title={post.title}
-                      description={post.description ? post.description : ""}
-                      image={post.coverPhoto ? post.coverPhoto.url : ""}
-                      subheader={moment(post.createdAt).format("MMMM DD, YYYY")}
-                      comments={post.comments.length}
-                      likes={post.likes.length}
-                      likesId={post.likes}
-                      showPosts={showPosts}
-                    />
-                  </Grid>
-                ))
-              )}
-            </Grid>
-          </Box>
+              <h2>No Post Is Available Now...</h2>
+              <h4>Make A Post</h4>
+            </Box>
+          )}
         </Container>
         <Footer />
       </Box>
