@@ -16,6 +16,7 @@ const RegisterPage = () => {
     email: "",
     phone: "",
     city: "",
+    // brand: "",
     password: "",
     confirmPassword: "",
     my_file: null,
@@ -32,12 +33,7 @@ const RegisterPage = () => {
 
   const [passwordMatch, setPasswordMatch] = useState(true);
 
-  // useEffect(() => {
-  //   setPasswordMatch(
-  //     formData.password === formData.confirmPassword ||
-  //       formData.confirmPassword === ""
-  //   );
-  // });
+  
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -123,17 +119,17 @@ const RegisterPage = () => {
               required
             />
             {/* <input
-              placeholder="Last Name"
-              name="lastName"
-              value={formData.lastName}
+              placeholder="Brand Name"
+              name="brand"
+              value={formData.brand}
               onChange={handleChange}
               required
             /> */}
             <input
-              placeholder="Email"
-              name="email"
-              type="email"
-              value={formData.email}
+              placeholder="City"
+              name="city"
+              type="city"
+              value={formData.city}
               onChange={handleChange}
               required
             />
@@ -146,10 +142,10 @@ const RegisterPage = () => {
               required
             />
             <input
-              placeholder="City"
-              name="city"
-              type="city"
-              value={formData.city}
+              placeholder="Email"
+              name="email"
+              type="email"
+              value={formData.email}
               onChange={handleChange}
               required
             />

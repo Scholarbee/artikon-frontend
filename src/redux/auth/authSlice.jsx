@@ -13,6 +13,11 @@ const initialState = {
     city: "",
     role: "",
   },
+  brand: {
+    brandName: "",
+    brandLocation: "",
+    brandContact: "",
+  },
 };
 
 const authSlice = createSlice({
@@ -24,6 +29,11 @@ const authSlice = createSlice({
     },
     SET_TOKEN(state, action) {
       state.token = action.payload;
+    },
+    SET_BRAND(state, action) {
+      state.brand.brandName = action.payload.brandName;
+      state.brand.brandLocation = action.payload.brandLocation;
+      state.brand.brandContact = action.payload.brandContact;
     },
     SET_NAME(state, action) {
       state.name = action.payload;
@@ -41,11 +51,13 @@ const authSlice = createSlice({
   },
 });
 
-export const { SET_LOGIN, SET_TOKEN, SET_NAME, SET_USER } = authSlice.actions;
+export const { SET_LOGIN, SET_TOKEN, SET_NAME, SET_USER, SET_BRAND } =
+  authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.isLoggedIn;
 export const selectToken = (state) => state.token;
 export const selectName = (state) => state.name;
 export const selectUser = (state) => state.user;
+export const selectBrand = (state) => state.brand;
 
 export default authSlice.reducer;

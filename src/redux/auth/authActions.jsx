@@ -30,7 +30,12 @@ export const registerUser = async (userData) => {
   }
 };
 
-// Login User
+/**
+ * Login User
+ * @param {*} userData 
+ * @returns 
+ * 
+ */
 export const loginUser = async (userData) => {
   try {
     const response = await axios.post(
@@ -203,11 +208,33 @@ export const adminUnblockUser = async (id) => {
     toast.error(message);
   }
 };
+
 // Delete user
 export const adminDeleteUser = async (id) => {
   try {
     const response = await axios.delete(
       `${BACKEND_URL}/api/users/delete-user/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
+
+/**
+ * 
+ * @param {*} formData 
+ * @returns 
+ */
+export const registerAgent = async (formData) => {
+  try {
+    const response = await axios.put(
+      `${BACKEND_URL}/api/users/register-agent`,
+      formData
     );
     return response.data;
   } catch (error) {

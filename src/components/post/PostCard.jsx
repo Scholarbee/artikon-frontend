@@ -25,6 +25,7 @@ const PostCard = ({
   title,
   subheader,
   image,
+  profilePhoto,
   description,
   comments,
   likes,
@@ -71,7 +72,9 @@ const PostCard = ({
     <Card sx={{ backgroundColor: "rgb(38, 38, 38)", color: "white" }}>
       <CardHeader
         sx={{ color: "white" }}
-        avatar={<Avatar sx={{ bgcolor: "#f57eb6" }} aria-label="recipe" />}
+        avatar={
+          <Avatar sx={{ bgcolor: "#f57eb6" }} src={profilePhoto} aria-label="dp" />
+        }
         title={
           <Typography variant="h6" sx={{ fontSize: "0.8rem" }}>
             {title}

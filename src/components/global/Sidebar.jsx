@@ -17,18 +17,16 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import InboxIcon from "@mui/icons-material/PostAddRounded";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import IsoIcon from "@mui/icons-material/Iso";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import DashIcon from "@mui/icons-material/Dashboard";
-import LockResetIcon from "@mui/icons-material/LockReset";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCartCheckout";
 import AppointmentIcon from "@mui/icons-material/ApprovalOutlined";
 import ReportIcon from "@mui/icons-material/Report";
-
-
+import { selectUser } from "../../redux/auth/authSlice";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const userInfo = useSelector(selectUser) 
 
   const itemTextStyle = {
     opacity: open ? 1 : 0,
@@ -55,7 +53,72 @@ export default function Sidebar() {
         {/* Light gray divider */}
         <List sx={{ backgroundColor: "rgb(85, 0, 70)", flexGrow: 1 }}>
           {" "}
-          {/* Darker purple background */}
+          {/* {userInfo.role === "admin" &&
+          } */}
+          {userInfo.role === "admin" &&
+            adminMenuItems.map((item) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => navigate(item.path)}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
+                    },
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      color: "#e0e0e0", // Light icon color
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} sx={itemTextStyle} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          {(userInfo.role === "agent" || userInfo.role === "admin") &&
+              agentMenuItems.map((item) => (
+                <ListItem
+                  key={item.text}
+                  disablePadding
+                  sx={{ display: "block" }}
+                  onClick={() => navigate(item.path)}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                        color: "#e0e0e0", // Light icon color
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} sx={itemTextStyle} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
@@ -148,30 +211,31 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const menuItems = [
-  { text: "Dashboard", icon: <DashIcon />, path: "/user/dashboard" },
-  { text: "My Post", icon: <InboxIcon />, path: "/user/posts" },
+  {
+    text: "My Cart",
+    icon: <ShoppingCartIcon />,
+    path: "/post/orders-and-books",
+  },
+
+  { text: "Report Bug", icon: <ReportIcon />, path: "/report-bug" },
+];
+
+const adminMenuItems = [
   {
     text: "Manage Users",
     icon: <PeopleOutlineIcon />,
     path: "/admin/manage-users",
   },
   { text: "Manage Posts", icon: <IsoIcon />, path: "/admin/manage-posts" },
+
+];
+
+const agentMenuItems = [
+  { text: "My Post", icon: <InboxIcon />, path: "/user/posts" },
   {
     text: "My Appointments",
     icon: <AppointmentIcon />,
     path: "/user/appointments",
   },
-  {
-    text: "Change Password",
-    icon: <LockResetIcon />,
-    path: "/change-password",
-  },
-  {
-    text: "Orders & Books",
-    icon: <ManageAccountsIcon />,
-    path: "/post/orders-and-books",
-  },
-  { text: "My Profile", icon: <AccountBoxIcon />, path: "/profile" },
   { text: "Archives", icon: <ArchiveIcon />, path: "/archives" },
-  { text: "Report Bug", icon: <ReportIcon />, path: "/report-bug" },
 ];

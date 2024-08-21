@@ -1,4 +1,4 @@
-import * as React from "react";
+// import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,10 +13,19 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_LOGIN, selectIsLoggedIn, selectUser } from "../../redux/auth/authSlice";
-import { logoutUser } from "../../redux/auth/authActions";
+import {
+  SET_BRAND,
+  SET_LOGIN,
+  SET_TOKEN,
+  SET_USER,
+  selectIsLoggedIn,
+  selectUser,
+} from "../../redux/auth/authSlice";
+import { logoutUser, registerAgent } from "../../redux/auth/authActions";
+import { Backdrop, Fade, Modal, Stack, TextField } from "@mui/material";
+import { useState } from "react";
 
-const pages = ["Home", "Dashboard"];
+// const pages = ["Home", "Dashboard"];
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -24,8 +33,14 @@ function Navbar() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const userInfo = useSelector(selectUser);
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [open, setOpen] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [brandName, setBrandName] = useState("");
+  const [brandLocation, setBrandLocation] = useState("");
+  const [brandContact, setBrandContact] = useState("");
 
   const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
@@ -35,7 +50,40 @@ function Navbar() {
   const logOutUser = async () => {
     await logoutUser();
     dispatch(SET_LOGIN(false));
+    dispatch(
+      SET_USER({
+        _id: "",
+        name: "",
+        email: "",
+        phone: "",
+        photo: "",
+        city: "",
+        role: "",
+      })
+    );
+    dispatch(SET_BRAND({ brandName: "", brandLocation: "", brandContact: "" }));
+    dispatch(SET_TOKEN(""));
     navigate("/");
+  };
+
+  const handleRegisterAgent = async () => {
+    const brandInfo = {
+      brandName,
+      brandLocation,
+      brandContact,
+    };
+    try {
+      setIsLoading(true);
+      const data = await registerAgent(brandInfo);
+      console.log(data);
+      dispatch(SET_BRAND(data.user.brand));
+      setOpen(false);
+      navigate("/user/dashboard");
+    } catch (error) {
+      console.log(error.response.message);
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -169,6 +217,17 @@ function Navbar() {
                 Login
               </Button>
             )}
+            {userInfo.role === "user" && (
+              <Button
+                onClick={() => {
+                  handleCloseNavMenu();
+                  setOpen(true);
+                }}
+                sx={{ my: 2, color: "white", display: "block", mr: 2 }}
+              >
+                Become An Agent
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -194,6 +253,16 @@ function Navbar() {
                   </Link>
                 </Typography>
               </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    to="/change-password"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Change Password
+                  </Link>
+                </Typography>
+              </MenuItem>
               {isLoggedIn ? (
                 <MenuItem onClick={logOutUser}>
                   <Typography textAlign="center" color="#8e67b2">
@@ -213,8 +282,110 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
+      <Box>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={() => setOpen(false)}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  borderBottom: "2px solid rgb(85, 0, 70)",
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: "rgb(85, 0, 70)",
+                }}
+                id="transition-modal-title"
+                variant="h5"
+                component="h2"
+              >
+                Register As Agent
+              </Typography>
+              {/* <Typography
+                variant="body2"
+                color="red"
+                // id="transition-modal-description"
+                sx={{ mt: 3 }}
+              >
+                Please do not make advance payment until you get what you want.
+              </Typography> */}
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="brand"
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
+                label={"Brand Name"}
+                name="brand"
+                autoComplete="brand"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                value={brandLocation}
+                id="brandLocation"
+                onChange={(e) => setBrandLocation(e.target.value)}
+                label={"Business Location"}
+                name="brandLocation"
+                autoComplete="location"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                value={brandContact}
+                id="phone"
+                label={"Business Contact"}
+                name="businessPhone"
+                autoComplete="businessPhone"
+                onChange={(e) => {
+                  setBrandContact(e.target.value);
+                }}
+              />
+              <Stack sx={{ margin: "20px 0 0 0" }}>
+                <Button
+                  href=""
+                  disabled={isLoading}
+                  variant="contained"
+                  onClick={handleRegisterAgent}
+                  sx={{ backgroundColor: "rgb(85, 0, 70)" }}
+                >
+                  {isLoading ? "Processing..." : "Register Now"}
+                </Button>
+              </Stack>
+            </Box>
+          </Fade>
+        </Modal>
+      </Box>
     </AppBar>
   );
 }
 
 export default Navbar;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};

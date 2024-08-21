@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -11,19 +12,26 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { createPost } from "../../redux/posts/postActions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
+import { Category } from "@mui/icons-material";
+import axios from "axios";
+import { BACKEND_URL } from "../../redux/auth/authActions";
+// import { Category } from "@mui/icons-material";
 
 function CreatePost() {
   useRedirectLoggedOutUser("/login");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [coverPhoto, setCoverPhoto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [data, setData] = useState({
     title: "",
     businessType: "",
+    category: "",
     description: "",
+    price: "",
   });
 
   const handleChange = (event) => {
@@ -34,9 +42,16 @@ function CreatePost() {
     });
   };
 
+  useEffect(() => {
+    axios.get(`${BACKEND_URL}/api/categories`).then(({ data }) => {
+      setCategories(data.categories);
+      console.log(data);
+    });
+  }, []);
+
   const submit = async (e) => {
     e.preventDefault();
-    const { title, description, businessType } = data;
+    const { title, description, businessType, price, category } = data;
 
     if (!title || !description || !businessType || !coverPhoto) {
       toast.info("All fields are required");
@@ -45,12 +60,14 @@ function CreatePost() {
       formData.append("title", title);
       formData.append("businessType", businessType);
       formData.append("description", description);
+      formData.append("category", category);
+      formData.append("price", price);
       formData.append("my_file", coverPhoto);
 
       setIsLoading(true);
       try {
         await createPost(formData);
-        toast.success("Ad created successfully");
+        toast.success("Post created successfully");
         setIsLoading(false);
         navigate("/user/posts");
       } catch (error) {
@@ -101,6 +118,63 @@ function CreatePost() {
                 </Select>
               </Stack>
             </FormControl>
+            {/* <FormControl required sx={{ m: 1, minWidth: 120 }}>
+              <Stack>
+                <InputLabel id="demo-simple-select-required-label">
+                  Business Type
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-required-label"
+                  id="demo-simple-select-required"
+                  value={data.businessType}
+                  placeholder="Business Type"
+                  label="Business Type *"
+                  name="businessType"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"good"}>Goods</MenuItem>
+                  <MenuItem value={"service"}>Services</MenuItem>
+                </Select>
+              </Stack>
+            </FormControl> */}
+            {/* <Grid item xs={12} sm={4}> */}
+            <FormControl required sx={{ width: "100%" }}>
+              <InputLabel id="demo-simple-select-required-label">
+                Category
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={data.category}
+                label="Category *"
+                name="category"
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>select Category</em>
+                </MenuItem>
+                {categories.map((category) => {
+                  return (
+                    <MenuItem key={category._id} value={category._id}>
+                      {category.category}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <TextField
+              sx={{ mb: 3 }}
+              fullWidth
+              id="price"
+              label="Price/Charges"
+              name="price"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Price/Charges"
+              value={data.price}
+              onChange={handleChange}
+            />
             <Stack>
               <label>Job Description</label>
               <textarea

@@ -29,8 +29,10 @@ function Home() {
   const getAllPosts = async () => {
     setLoading(true);
     try {
-      const data = await getPosts();
-      setPosts(data.data);
+      const { data } = await getPosts();
+      console.log(data);
+
+      setPosts(data.posts);
       setLoading(false);
     } catch (error) {
       toast.error(error.message);
@@ -101,6 +103,9 @@ function Home() {
                         title={post.title}
                         description={post.description ? post.description : ""}
                         image={post.coverPhoto ? post.coverPhoto.url : ""}
+                        profilePhoto={
+                          post.postedBy.photo ? post.postedBy.photo.url : ""
+                        }
                         subheader={moment(post.createdAt).format(
                           "MMMM DD, YYYY"
                         )}
@@ -122,8 +127,8 @@ function Home() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                  minHeight: "200px",
-                borderRadius:"20% 20%"
+                minHeight: "200px",
+                borderRadius: "20% 20%",
               }}
             >
               <h2>No Post Is Available Now...</h2>

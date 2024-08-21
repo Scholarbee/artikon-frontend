@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostInfo } from "../../redux/posts/postActions";
 import { BACKEND_URL } from "../../redux/auth/authActions";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 import {
   Backdrop,
@@ -19,16 +18,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { selectIsLoggedIn } from "../../redux/auth/authSlice";
 import moment from "moment";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { Label } from "@mui/icons-material";
 import Loader from "../../components/global/Loader";
 
 function PostInfo() {
@@ -53,13 +48,6 @@ function PostInfo() {
   const [address, setAddress] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [quantity, setQuantity] = useState("");
-
-  // const formData = {
-  //   phone: contact,
-  //   address,
-  //   appointmentDate: dateTime,
-  //   quantity,
-  // };
 
   const { id } = useParams();
 

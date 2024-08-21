@@ -37,10 +37,9 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const data = await loginUser(userData);
-      // console.log(data);
       dispatch(SET_LOGIN(true));
       dispatch(SET_TOKEN(data.token));
-      dispatch(SET_NAME(data.firstName + " " + data.surname));
+      dispatch(SET_NAME(data.name));
       dispatch(SET_USER(data));
       // console.log(data);
       navigate("/user/dashboard");
