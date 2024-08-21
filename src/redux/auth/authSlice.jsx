@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
+  sidebarIsOpen: false,
   name: "",
   token: "",
   user: {
@@ -27,6 +28,9 @@ const authSlice = createSlice({
     SET_LOGIN(state, action) {
       state.isLoggedIn = action.payload;
     },
+    SET_SIDEBAR_OPEN(state, action) {
+      state.sidebarIsOpen = action.payload;
+    },
     SET_TOKEN(state, action) {
       state.token = action.payload;
     },
@@ -51,10 +55,17 @@ const authSlice = createSlice({
   },
 });
 
-export const { SET_LOGIN, SET_TOKEN, SET_NAME, SET_USER, SET_BRAND } =
-  authSlice.actions;
+export const {
+  SET_LOGIN,
+  SET_TOKEN,
+  SET_NAME,
+  SET_USER,
+  SET_BRAND,
+  SET_SIDEBAR_OPEN,
+} = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.isLoggedIn;
+export const selectSidebarIsOpen = (state) => state.sidebarIsOpen;
 export const selectToken = (state) => state.token;
 export const selectName = (state) => state.name;
 export const selectUser = (state) => state.user;

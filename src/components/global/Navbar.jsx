@@ -83,7 +83,7 @@ function Navbar() {
     } catch (error) {
       console.log(error.response.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -162,6 +162,23 @@ function Navbar() {
                       style={{ color: "black", textDecoration: "none" }}
                     >
                       {"Login"}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+              )}
+              {userInfo.role === "user" && (
+                <MenuItem
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    setOpen(true);
+                  }}
+                >
+                  <Typography textAlign="center">
+                    <Link
+                      // to={`/user/dashboard`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
+                      {"Become Agent"}
                     </Link>
                   </Typography>
                 </MenuItem>

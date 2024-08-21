@@ -20,29 +20,35 @@ import IsoIcon from "@mui/icons-material/Iso";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCartCheckout";
 import AppointmentIcon from "@mui/icons-material/ApprovalOutlined";
 import ReportIcon from "@mui/icons-material/Report";
-import { selectUser } from "../../redux/auth/authSlice";
-import { useSelector } from "react-redux";
+import {
+  selectSidebarIsOpen,
+  selectUser,
+  SET_SIDEBAR_OPEN,
+} from "../../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  // const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const userInfo = useSelector(selectUser) 
+  const userInfo = useSelector(selectUser);
+  const sidebarOpen = useSelector(selectSidebarIsOpen);
 
   const itemTextStyle = {
-    opacity: open ? 1 : 0,
-    color: open ? "#e0e0e0" : "#b0b0b0", // Slightly lighter gray for closed state
+    opacity: sidebarOpen ? 1 : 0,
+    color: sidebarOpen ? "#e0e0e0" : "#b0b0b0", // Slightly lighter gray for closed state
   };
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={sidebarOpen}>
         <DrawerHeader sx={{ backgroundColor: "rgb(85, 0, 70)" }}>
           {" "}
           {/* Darker purple background */}
-          <IconButton onClick={() => setOpen(!open)}>
-            {!open ? (
+          <IconButton onClick={() => dispatch(SET_SIDEBAR_OPEN(!sidebarOpen))}>
+            {!sidebarOpen ? (
               <ChevronRightIcon sx={{ color: "#e0e0e0" }} />
             ) : (
               <ChevronLeftIcon sx={{ color: "#e0e0e0" }} />
@@ -66,7 +72,7 @@ export default function Sidebar() {
                 <ListItemButton
                   sx={{
                     minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
+                    justifyContent: sidebarOpen ? "initial" : "center",
                     px: 2.5,
                     "&:hover": {
                       backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
@@ -76,7 +82,7 @@ export default function Sidebar() {
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
-                      mr: open ? 3 : "auto",
+                      mr: sidebarOpen ? 3 : "auto",
                       justifyContent: "center",
                       color: "#e0e0e0", // Light icon color
                     }}
@@ -88,37 +94,37 @@ export default function Sidebar() {
               </ListItem>
             ))}
           {(userInfo.role === "agent" || userInfo.role === "admin") &&
-              agentMenuItems.map((item) => (
-                <ListItem
-                  key={item.text}
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => navigate(item.path)}
+            agentMenuItems.map((item) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => navigate(item.path)}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: sidebarOpen ? "initial" : "center",
+                    px: 2.5,
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
+                    },
+                  }}
                 >
-                  <ListItemButton
+                  <ListItemIcon
                     sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
-                      },
+                      minWidth: 0,
+                      mr: sidebarOpen ? 3 : "auto",
+                      justifyContent: "center",
+                      color: "#e0e0e0", // Light icon color
                     }}
                   >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                        color: "#e0e0e0", // Light icon color
-                      }}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} sx={itemTextStyle} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} sx={itemTextStyle} />
+                </ListItemButton>
+              </ListItem>
+            ))}
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
@@ -129,7 +135,7 @@ export default function Sidebar() {
               <ListItemButton
                 sx={{
                   minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
+                  justifyContent: sidebarOpen ? "initial" : "center",
                   px: 2.5,
                   "&:hover": {
                     backgroundColor: "rgba(255, 255, 255, 0.3)", // Lighter hover effect
@@ -139,7 +145,7 @@ export default function Sidebar() {
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: open ? 3 : "auto",
+                    mr: sidebarOpen ? 3 : "auto",
                     justifyContent: "center",
                     color: "#e0e0e0", // Light icon color
                   }}
@@ -227,7 +233,6 @@ const adminMenuItems = [
     path: "/admin/manage-users",
   },
   { text: "Manage Posts", icon: <IsoIcon />, path: "/admin/manage-posts" },
-
 ];
 
 const agentMenuItems = [
