@@ -77,6 +77,7 @@ function Navbar() {
       const data = await registerAgent(brandInfo);
       console.log(data);
       dispatch(SET_BRAND(data.user.brand));
+      dispatch(SET_USER(data.user));
       setOpen(false);
       navigate("/user/dashboard");
     } catch (error) {
