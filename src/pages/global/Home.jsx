@@ -36,7 +36,7 @@ function Home() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const getAllPosts = async () => {
     setLoading(true);
@@ -54,7 +54,7 @@ function Home() {
 
   const showPosts = async () => {
     try {
-      const {data} = await getPosts();
+      const { data } = await getPosts();
       console.log(data);
       setPosts(data.posts);
       setAllPosts(data.posts);
@@ -90,16 +90,16 @@ function Home() {
     }
   };
 
- const handleQuickSearch = (id) => {
-   setSelectedCategory(id);
+  const handleQuickSearch = (id) => {
+    setSelectedCategory(id);
 
-   if (id) {
-     const results = allPosts.filter((post) => post.category === id);
-     setPosts(results);
-   } else {
-     setPosts(allPosts);
-   }
- };
+    if (id) {
+      const results = allPosts.filter((post) => post.category === id);
+      setPosts(results);
+    } else {
+      setPosts(allPosts);
+    }
+  };
 
   return (
     <>
@@ -149,6 +149,16 @@ function Home() {
               </p>
               <h2>Explore Top Categories</h2>
               <div className="category-list">
+                <div
+                  className={`category ${selectedCategory === "all" && "selected"}`}
+                  onClick={() => {
+                    setSelectedCategory("all");
+                    setPosts(allPosts);
+                  }}
+                >
+                  <div className="category_icon">{<FilterIcon />}</div>
+                  <p>{"All"}</p>
+                </div>
                 {categories.map((category, index) => (
                   <div
                     className={`category ${
