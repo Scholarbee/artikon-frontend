@@ -3,6 +3,7 @@ import "../../styles/Login.scss";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  SET_BRAND,
   SET_LOGIN,
   SET_NAME,
   SET_TOKEN,
@@ -41,7 +42,8 @@ const LoginPage = () => {
       dispatch(SET_TOKEN(data.token));
       dispatch(SET_NAME(data.name));
       dispatch(SET_USER(data));
-      // console.log(data);
+      dispatch(SET_BRAND(data.brand));
+      console.log(data);
       navigate("/user/dashboard");
       setIsLoading(false);
     } catch (error) {
