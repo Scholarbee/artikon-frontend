@@ -242,5 +242,10 @@ const agentMenuItems = [
     icon: <AppointmentIcon />,
     path: "/user/appointments",
   },
+  {
+    text: "My Orders",
+    icon: <AppointmentIcon />,
+    path: "/user/orders",
+  },
   { text: "Archives", icon: <ArchiveIcon />, path: "/archives" },
 ];

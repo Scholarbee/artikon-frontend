@@ -14,16 +14,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getMyAppointments, getMyOrders } from "../../redux/posts/postActions";
 import moment from "moment";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
 
-function MyAppointments() {
+function MyOrders() {
   useRedirectLoggedOutUser();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [myAppointments, setMyAppointments] = useState([]);
+  const [myOrders, setMyOrders] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -35,13 +36,13 @@ function MyAppointments() {
   };
 
   useEffect(() => {
-    getAppointments();
+    getOrders();
   }, []);
 
-  const getAppointments = async () => {
-    const { data } = await getMyAppointments();
+  const getOrders = async () => {
+    const { data } = await getMyOrders();
     console.log(data);
-    setMyAppointments(data.appointments);
+    setMyOrders(data.orders);
   };
 
   return (
@@ -54,51 +55,42 @@ function MyAppointments() {
                 variant="h5"
                 sx={{ textAlign: "center", color: "black" }}
               >
-                My Appointments
+                My Orders
               </Typography>
               <Paper sx={{ width: "100%", overflow: "hidden" }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Booked By</TableCell>
+                        <TableCell>Ordered By</TableCell>
                         <TableCell>Phone</TableCell>
                         <TableCell>Address</TableCell>
-                        <TableCell>Date Booked</TableCell>
-                        <TableCell>Service Title</TableCell>
-                        <TableCell>Booked Date</TableCell>
-                        <TableCell>Status</TableCell>
+                        <TableCell>Date Ordered</TableCell>
+                        <TableCell>Title</TableCell>
+                        <TableCell>Quantities</TableCell>
                         <TableCell>Actions</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {myAppointments
+                      {myOrders
                         .slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                         )
-                        .map((appointment, i) => {
+                        .map((order, i) => {
                           return (
                             <TableRow key={i}>
-                              <TableCell>{appointment.bookedBy.name}</TableCell>
-                              <TableCell>{appointment.phone}</TableCell>
-                              <TableCell>{appointment.address}</TableCell>
+                              <TableCell>{order.orderedBy.name}</TableCell>
+                              <TableCell>{order.phone}</TableCell>
+                              <TableCell>{order.address}</TableCell>
                               <TableCell>
-                                {moment(appointment.createdAt).format(
+                                {moment(order.createdAt).format(
                                   "MMMM DD, YYYY"
                                 )}
                               </TableCell>
-                              <TableCell>{appointment.postTitle}</TableCell>
-                              <TableCell>
-                                {moment(appointment.createdAt).format(
-                                  "MMMM DD, YYYY"
-                                )}
-                              </TableCell>
-                              <TableCell>Pending</TableCell>
-                              <TableCell>
-                                <Button>Approve</Button>
-                                <Button>Decline</Button>
-                              </TableCell>
+                              <TableCell>{order.postTitle}</TableCell>
+                              <TableCell>{order.quantity}</TableCell>
+                              <TableCell>Buttons</TableCell>
                             </TableRow>
                           );
                         })}
@@ -108,7 +100,7 @@ function MyAppointments() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 50, 100]}
                   component="div"
-                  count={myAppointments.length}
+                  count={myOrders.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={handleChangePage}
@@ -123,4 +115,4 @@ function MyAppointments() {
   );
 }
 
-export default MyAppointments;
+export default MyOrders;

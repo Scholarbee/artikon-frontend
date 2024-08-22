@@ -28,6 +28,7 @@ import ManagePosts from "./pages/admin/ManagePosts";
 import BooksAndOrders from "./pages/user/BooksAndOrders";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import MyOrders from "./pages/user/MyOthers";
 
 const AdminDashboardHOC = Layout(AdminDashboard);
 const ManageUsersHOC = Layout(ManageUsers);
@@ -36,6 +37,7 @@ const UserDashboardHOC = Layout(UserDashboard);
 const UserChangePwdHOC = Layout(ChangePassword);
 const UserPostHOC = Layout(MyPosts);
 const UserAppoitmentHOC = Layout(MyAppointments);
+const UserOrdersHOC = Layout(MyOrders);
 const MyProfileHOC = Layout(MyProfile);
 const CreatePostHOC = Layout(CreatePost);
 const ReportBugHOC = Layout(ReportBug);
@@ -83,6 +85,7 @@ function App() {
           <Route path="/posts/create-post" element={<CreatePostHOC />} />
           <Route path="/change-password" element={<UserChangePwdHOC />} />
           <Route path="/user/appointments" element={<UserAppoitmentHOC />} />
+          <Route path="/user/orders" element={<UserOrdersHOC />} />
           <Route
             path="/post/orders-and-books"
             element={<UserBooksAndOrdersHOC />}
