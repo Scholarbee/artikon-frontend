@@ -35,9 +35,11 @@ function PostInfo() {
   const [title, setTitle] = useState("");
   const [postedBy, setPostedBy] = useState("");
   const [phone, setPhone] = useState("");
+  const [price, setPrice] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [businessType, setBusinessType] = useState("");
+  const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const [createdAt, setCreatedAt] = useState("");
@@ -48,6 +50,9 @@ function PostInfo() {
   const [address, setAddress] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [brandName, setBrandName] = useState("");
+  const [brandLocation, setBrandLocation] = useState("");
+  const [brandContact, setBrandContact] = useState("");
 
   const { id } = useParams();
 
@@ -58,6 +63,7 @@ function PostInfo() {
       console.log(data);
       setRef(data.post._id);
       setTitle(data.post.title);
+      setPrice(data.post.price);
       setContent(data.post.description);
       setBusinessType(data.post.businessType);
       setImage(data.post.coverPhoto.url);
@@ -66,6 +72,10 @@ function PostInfo() {
       setLocation(data.post.postedBy.city);
       setPhone(data.post.postedBy.phone);
       setCreatedAt(data.post.createdAt);
+      setCategory(data.post.category.category);
+      setBrandName(data.post.postedBy.brand.brandName);
+      setBrandLocation(data.post.postedBy.brand.brandLocation);
+      setBrandContact(data.post.postedBy.brand.brandContact);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -78,7 +88,10 @@ function PostInfo() {
     }
   }, []);
 
-  // Place order
+  /**
+   * This function handle place order
+   * @param {*} e
+   */
   const handleOrders = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -111,8 +124,6 @@ function PostInfo() {
 
   /**
    * This function handle Book Appointment
-   *
-   *
    * @param {*} e - The event object.
    */
   const handleAppointments = async (e) => {
@@ -181,6 +192,9 @@ function PostInfo() {
                 </Typography>
                 <Box>
                   <Typography gutterBottom variant="h7" component="div">
+                    Brand Name: {brandName}
+                  </Typography>
+                  <Typography gutterBottom variant="h7" component="div">
                     Brand Owner: {postedBy}
                   </Typography>
                   <Typography gutterBottom variant="h7" component="div">
@@ -200,15 +214,15 @@ function PostInfo() {
                     Business Type: {businessType}
                   </Typography>
                   <Typography gutterBottom variant="h7" component="div">
-                    Category: {""}
+                    Category: {category}
                   </Typography>
                   {businessType === "service" ? (
                     <Typography gutterBottom variant="h7" component="div">
-                      Service Charge: {"¢12.00"}
+                      Service Charge: {parseFloat(price).toFixed(2)}
                     </Typography>
                   ) : (
                     <Typography gutterBottom variant="h7" component="div">
-                      Price: {"¢12.00"}
+                      Price: {parseFloat(price).toFixed(2)}
                     </Typography>
                   )}
                 </Box>
@@ -230,7 +244,7 @@ function PostInfo() {
                       href=""
                       variant="contained"
                       onClick={() => setOpen(true)}
-                      sx={{ backgroundColor: "teal" }}
+                      sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                       // onClick={changePassword}
                       // endIcon={<SendIcon />}
                     >
@@ -241,7 +255,7 @@ function PostInfo() {
                       href=""
                       variant="contained"
                       onClick={() => setOpen(true)}
-                      sx={{ backgroundColor: "teal" }}
+                      sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                       // onClick={changePassword}
                       // endIcon={<SendIcon />}
                     >
@@ -356,7 +370,7 @@ function PostInfo() {
                     variant="contained"
                     disabled={isLoading}
                     onClick={handleAppointments}
-                    sx={{ backgroundColor: "teal" }}
+                    sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >
@@ -368,7 +382,7 @@ function PostInfo() {
                     disabled={isLoading}
                     variant="contained"
                     onClick={handleOrders}
-                    sx={{ backgroundColor: "teal" }}
+                    sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                     // onClick={changePassword}
                     // endIcon={<SendIcon />}
                   >

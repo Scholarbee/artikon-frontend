@@ -73,7 +73,11 @@ function ChangePassword() {
               variant="standard"
             />
 
-            <Button variant="contained" color="success">
+            <Button
+              variant="contained"
+              // color="success"
+              sx={{ backgroundColor: "rgb(85, 0, 70)" }}
+            >
               Change Password
             </Button>
           </Stack>

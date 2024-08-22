@@ -176,7 +176,7 @@ function CreatePost() {
               onChange={handleChange}
             />
             <Stack>
-              <label>Job Description</label>
+              <label>Description</label>
               <textarea
                 cols="30"
                 rows="10"
@@ -213,7 +213,13 @@ function CreatePost() {
               fullWidth
               variant="contained"
               elevation={0}
-              sx={{ mt: 3, p: 1, mb: 2, borderRadius: "25px" }}
+              sx={{
+                mt: 3,
+                p: 1,
+                mb: 2,
+                borderRadius: "25px",
+                backgroundColor: "rgb(85, 0, 70)",
+              }}
               disabled={isLoading}
             >
               {isLoading ? "Processing... Please wait" : "Create post"}

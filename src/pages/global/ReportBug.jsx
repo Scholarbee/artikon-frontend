@@ -55,7 +55,7 @@ const ReportBug = () => {
                 p: 5,
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "teal" }}>
+              <Avatar sx={{ m: 1, bgcolor: "rgb(85, 0, 70)" }}>
                 <Mail />
               </Avatar>
               <Typography
@@ -92,6 +92,7 @@ const ReportBug = () => {
                   color="success"
                   onClick={sendEmail}
                   endIcon={<SendIcon />}
+                  sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                 >
                   Send Report
                 </Button>

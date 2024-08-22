@@ -75,7 +75,7 @@ function ResetPassword() {
               p: 5,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "teal" }}>
+            <Avatar sx={{ m: 1, bgcolor: "rgb(85, 0, 70)" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography
@@ -112,7 +112,7 @@ function ResetPassword() {
                 href="/login"
                 variant="contained"
                 onClick={changePassword}
-                // endIcon={<SendIcon />}
+                sx={{ backgroundColor: "rgb(85, 0, 70)" }}
               >
                 Submit
               </Button>

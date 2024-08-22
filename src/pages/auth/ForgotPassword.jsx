@@ -80,7 +80,7 @@ function ForgotPassword() {
               p: 5,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "teal" }}>
+            <Avatar sx={{ m: 1, bgcolor: "rgb(85, 0, 70)" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography
@@ -107,6 +107,7 @@ function ForgotPassword() {
                 onClick={sendMail}
                 variant="contained"
                 endIcon={<SendIcon />}
+                sx={{ backgroundColor: "rgb(85, 0, 70)" }}
               >
                 Send reset link
               </Button>

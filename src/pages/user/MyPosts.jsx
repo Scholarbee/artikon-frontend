@@ -60,9 +60,14 @@ function MyPosts() {
                   variant="contained"
                   color="success"
                   startIcon={<AddIcon />}
+                  sx={{ backgroundColor: "rgb(85, 0, 70)" }}
                 >
                   <Link
-                    style={{ color: "white", textDecoration: "none" }}
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      backgroundColor: "rgb(85, 0, 70)",
+                    }}
                     to="/posts/create-post"
                   >
                     Create Post
