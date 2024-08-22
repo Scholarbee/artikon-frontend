@@ -15,18 +15,13 @@ import { getPosts } from "../../redux/posts/postActions";
 import { toast } from "react-toastify";
 import moment from "moment";
 import Loader from "../../components/global/Loader";
-
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-// import FilterIcon from "@mui/icons-material/Filter1Rounded";
-// import FilterIcon from "@mui/icons-material/Filter";
 import FilterIcon from "@mui/icons-material/FilterAltOutlined";
 import Carousel from "react-material-ui-carousel";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../../redux/auth/authActions";
-// import "../styles/Categories.scss";
-import "../../styles/Listings.scss";
+// import "../../styles/Listings.scss";
 import "../../styles/Categories.scss";
 
 function Home() {
@@ -74,21 +69,21 @@ function Home() {
     getAllPosts();
   }, []);
 
-  const handleSearch = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
+  // const handleSearch = (e) => {
+  //   const query = e.target.value.toLowerCase();
+  //   setSearchQuery(query);
 
-    if (query) {
-      const results = allPosts.filter(
-        (post) =>
-          post.category.toLowerCase().includes(query) ||
-          post.surname.toLowerCase().includes(query)
-      );
-      setPosts(results);
-    } else {
-      setPosts(allPosts);
-    }
-  };
+  //   if (query) {
+  //     const results = allPosts.filter(
+  //       (post) =>
+  //         post.category.toLowerCase().includes(query) ||
+  //         post.surname.toLowerCase().includes(query)
+  //     );
+  //     setPosts(results);
+  //   } else {
+  //     setPosts(allPosts);
+  //   }
+  // };
 
   const handleQuickSearch = (id) => {
     setSelectedCategory(id);
@@ -113,8 +108,8 @@ function Home() {
               navButtonsAlwaysVisible={isSmallScreen}
               interval={3000}
               animation="slide"
-              next={(next, active) => <Button>{<KeyboardArrowRight />}</Button>}
-              prev={(prev, active) => <Button>{<KeyboardArrowLeft />}</Button>}
+              next={() => <Button>{<KeyboardArrowRight />}</Button>}
+              prev={() => <Button>{<KeyboardArrowLeft />}</Button>}
             >
               {images.map((item, index) => (
                 <Paper key={index} sx={{ padding: 2, textAlign: "center" }}>
@@ -147,10 +142,12 @@ function Home() {
                 tradition, craftsmanship, and creativity. Explore our
                 collections and support the artists behind the craft.
               </p>
-              <h2>Explore Top Categories</h2>
+              <h2>Explore Some Top Categories</h2>
               <div className="category-list">
                 <div
-                  className={`category ${selectedCategory === "all" && "selected"}`}
+                  className={`category ${
+                    selectedCategory === "all" && "selected"
+                  }`}
                   onClick={() => {
                     setSelectedCategory("all");
                     setPosts(allPosts);

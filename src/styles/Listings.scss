@@ -2,14 +2,14 @@
 @import "./breakpoints.scss";
 
 .category-list {
-  padding: 50px 80px;
+  padding: 10px 15px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 60px;
+  gap: 20px;
 
   @include sm {
-    padding: 50px 20px;
+    padding: 10px 10px;
   }
 
   .category {
@@ -20,12 +20,13 @@
     cursor: pointer;
 
     &_icon {
-      font-size: 30px;
+      font-size: 10px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 700;
+      margin: 0px;
     }
 
     &:hover {
