@@ -18,13 +18,25 @@ import Loader from "../../components/global/Loader";
 
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+// import FilterIcon from "@mui/icons-material/Filter1Rounded";
+// import FilterIcon from "@mui/icons-material/Filter";
+import FilterIcon from "@mui/icons-material/FilterAltOutlined";
 import Carousel from "react-material-ui-carousel";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { BACKEND_URL } from "../../redux/auth/authActions";
+// import "../styles/Categories.scss";
+import "../../styles/Listings.scss";
+import "../../styles/Categories.scss";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const getAllPosts = async () => {
     setLoading(true);
@@ -33,6 +45,7 @@ function Home() {
       console.log(data);
 
       setPosts(data.posts);
+      setAllPosts(data.posts);
       setLoading(false);
     } catch (error) {
       toast.error(error.message);
@@ -41,16 +54,52 @@ function Home() {
 
   const showPosts = async () => {
     try {
-      const data = await getPosts();
-      setPosts(data.data);
+      const {data} = await getPosts();
+      console.log(data);
+      setPosts(data.posts);
+      setAllPosts(data.posts);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   useEffect(() => {
+    axios.get(`${BACKEND_URL}/api/categories`).then(({ data }) => {
+      setCategories(data.categories);
+      console.log(data);
+    });
+  }, []);
+
+  useEffect(() => {
     getAllPosts();
   }, []);
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    if (query) {
+      const results = allPosts.filter(
+        (post) =>
+          post.category.toLowerCase().includes(query) ||
+          post.surname.toLowerCase().includes(query)
+      );
+      setPosts(results);
+    } else {
+      setPosts(allPosts);
+    }
+  };
+
+ const handleQuickSearch = (id) => {
+   setSelectedCategory(id);
+
+   if (id) {
+     const results = allPosts.filter((post) => post.category === id);
+     setPosts(results);
+   } else {
+     setPosts(allPosts);
+   }
+ };
 
   return (
     <>
@@ -85,6 +134,35 @@ function Home() {
                 </Paper>
               ))}
             </Carousel>
+          </Box>
+
+          <Box>
+            <div className="categories">
+              <h1>Welcome to ArtiKon</h1>
+              <p>
+                Discover the beauty of handcrafted artistry. At ArtiKon, we
+                bring you unique, one-of-a-kind creations made with passion and
+                skill by local artisans. From timeless jewelry and home décor to
+                personalized gifts and accessories, each piece tells a story of
+                tradition, craftsmanship, and creativity. Explore our
+                collections and support the artists behind the craft.
+              </p>
+              <h2>Explore Top Categories</h2>
+              <div className="category-list">
+                {categories.map((category, index) => (
+                  <div
+                    className={`category ${
+                      category._id === selectedCategory ? "selected" : ""
+                    }`}
+                    key={index}
+                    onClick={() => handleQuickSearch(category._id)}
+                  >
+                    <div className="category_icon">{<FilterIcon />}</div>
+                    <p>{category.category}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </Box>
           {posts.length !== 0 ? (
             <Box sx={{ flexGrow: 1 }}>
