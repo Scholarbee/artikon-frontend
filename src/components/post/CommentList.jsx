@@ -12,11 +12,11 @@ const CommentList = ({ name, text, date, profilePhoto }) => {
     <List
       sx={{
         maxWidth: 360,
-        bgcolor: grey[900], // Dark gray background
-        borderRadius: "12px", // Smoother rounded corners
+        bgcolor: grey[900],
+        borderRadius: "12px",
         marginBottom: "6px",
         padding: "8px",
-        color: grey[50], // Light gray text for better contrast
+        color: grey[50],
       }}
     >
       <ListItem alignItems="flex-start">

@@ -151,7 +151,11 @@ const PostCommentSesion = () => {
                           />
                         </Stack>
                         <Box sx={{ pt: 1 }}>
-                          <Button type="submit" variant="contained">
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{ backgroundColor: "rgb(85, 0, 70)" }}
+                          >
                             Comment
                           </Button>
                         </Box>
