@@ -53,6 +53,7 @@ export const deletePost = async (id) => {
   const response = await axios.delete(API_URL + id);
   return response.data;
 };
+
 // Get a post
 export const getPost = async (id) => {
   const response = await axios.get(API_URL + "/post/" + id);

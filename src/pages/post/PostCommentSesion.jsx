@@ -2,8 +2,6 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -16,7 +14,7 @@ import { useSelector } from "react-redux";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { toast } from "react-toastify";
 import CommentList from "../../components/post/CommentList";
-import { addComment, getPost } from "../../redux/posts/postActions";
+import { getPost } from "../../redux/posts/postActions";
 import { selectIsLoggedIn } from "../../redux/auth/authSlice";
 import { BACKEND_URL } from "../../redux/auth/authActions";
 import useRedirectLoggedOutUser from "../../services/useRedirectLoggedOutUser";
@@ -35,10 +33,10 @@ const PostCommentSesion = () => {
 
   const { id } = useParams();
 
-  const displaySinglePost = async () => {
+  const showPostDetail = async () => {
     setLoading(true);
     try {
-      const { data } = await await getPost(id);
+      const { data } = await getPost(id);
       console.log(data);
       setTitle(data.post.title);
       setContent(data.post.description);
@@ -53,35 +51,38 @@ const PostCommentSesion = () => {
 
   useEffect(() => {
     if (!loading) {
-      displaySinglePost();
+      showPostDetail();
     }
   }, []);
 
   // add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.put(
-        `${BACKEND_URL}/api/posts/add-comment/${id}`,
-        {
-          comment,
-        }
-      );
-      if (data.success === true) {
-        setComment("");
-        toast.success("comment added");
-        displaySinglePost();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error);
+    if (!comment) {
+      return toast.info("You can not add  empty comment. Please type your message");
     }
+      try {
+        const { data } = await axios.put(
+          `${BACKEND_URL}/api/posts/add-comment/${id}`,
+          {
+            comment,
+          }
+        );
+        if (data.success === true) {
+          setComment("");
+          toast.success("comment added");
+          showPostDetail();
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error);
+      }
   };
 
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={12} md={6}>
           <Card>
             <CardHeader
               // avatar={
@@ -97,7 +98,7 @@ const PostCommentSesion = () => {
             />
 
             {/* <Grid xs={12} md={ 6 }> */}
-            <Grid item xs={12} md={ 6 }>
+            <Grid item xs={12} md={6}>
               <CardMedia
                 component="img"
                 height="auto"
@@ -109,8 +110,10 @@ const PostCommentSesion = () => {
               <Typography variant="body2" color="text.secondary">
                 <Box
                   component="span"
-                  dangerouslySetInnerHTML={{ __html: content }}
-                ></Box>
+                  // dangerouslySetInnerHTML={{ __html: content }}
+                >
+                  {content}
+                </Box>
               </Typography>
               <Divider variant="inset" />
 
@@ -127,8 +130,9 @@ const PostCommentSesion = () => {
                   <CommentList
                     key={comment._id}
                     name={comment.postedBy.name}
+                    profilePhoto={comment.postedBy.photo.url}
                     date={moment(comment.createdAt).format(
-                      "MMMM DD, YYYY (HH:MM)"
+                      "MMMM DD, YYYY (HH:mm)"
                     )}
                     text={comment.text}
                   />
