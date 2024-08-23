@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Button, Divider, Grid, Stack } from "@mui/material";
+import { Avatar, Box, Button, Divider, Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -59,24 +59,25 @@ const PostCommentSesion = () => {
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!comment) {
-      return toast.info("You can not add  empty comment. Please type your message");
+      return toast.info(
+        "You can not add  empty comment. Please type your message"
+      );
     }
-      try {
-        const { data } = await axios.put(
-          `${BACKEND_URL}/api/posts/add-comment/${id}`,
-          {
-            comment,
-          }
-        );
-        if (data.success === true) {
-          setComment("");
-          toast.success("comment added");
-          showPostDetail();
+    try {
+      const { data } = await axios.put(
+        `${BACKEND_URL}/api/posts/add-comment/${id}`,
+        {
+          comment,
         }
-      } catch (error) {
-        console.log(error);
-        toast.error(error);
-      }
+      );
+
+      setComment("");
+      toast.success("comment added");
+      showPostDetail();
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
   };
 
   return (
@@ -85,16 +86,8 @@ const PostCommentSesion = () => {
         <Grid item xs={12} sm={12} md={6}>
           <Card>
             <CardHeader
-              // avatar={
-              //   <Avatar sx={{ bgcolor: red[500] }} aria-label="coverPhoto" />
-              // }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
               title={title}
-              subheader={moment(createdAt).format("MMMM DD, YYYY")}
+              subheader={moment(createdAt).format("MMM DD, YYYY")}
             />
 
             {/* <Grid xs={12} md={ 6 }> */}
@@ -132,7 +125,7 @@ const PostCommentSesion = () => {
                     name={comment.postedBy.name}
                     profilePhoto={comment.postedBy.photo.url}
                     date={moment(comment.createdAt).format(
-                      "MMMM DD, YYYY (HH:mm)"
+                      "MMM DD, YYYY (HH:mm)"
                     )}
                     text={comment.text}
                   />
